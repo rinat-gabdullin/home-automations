@@ -1,0 +1,42 @@
+default_platform(:mac)
+platform :mac do
+
+  lane :deploy do
+      build_app(
+        scheme: "HomeEngine",
+        project: "HomeScenarios.xcodeproj",
+        skip_codesigning: true,
+        skip_package_ipa: true,
+        export_method: "mac-application",
+        output_directory: "./build/"
+      )
+
+      ssh(
+        host: "mini.local",
+        username: "rinat",
+        password: "Marta123",
+        commands: [
+          "launchctl unload -w /Users/rinat/Library/LaunchAgents/HomeEngine.plist"
+        ]
+      )
+
+      scp(
+        host: "mini.local",
+        username: "rinat",
+        password: "Marta123",
+        upload: {
+          src: "./build/HomeEngine",
+          dst: "/usr/local/bin/HomeEngine"
+        }
+      )
+
+      ssh(
+        host: "mini.local",
+        username: "rinat",
+        password: "Marta123",
+        commands: [
+          "launchctl load -w /Users/rinat/Library/LaunchAgents/HomeEngine.plist"
+        ]
+      )
+  end
+end

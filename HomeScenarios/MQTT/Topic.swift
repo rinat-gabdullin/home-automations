@@ -19,7 +19,7 @@ struct Topic: Hashable, ExpressibleByStringLiteral {
         path = value
     }
     
-    func makeSetter() -> Topic {
+    var on: Topic {
         assert(!path.hasSuffix("/on"))
         return Topic(path: path + "/on")
     }

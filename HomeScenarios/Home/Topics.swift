@@ -9,7 +9,7 @@ import Foundation
 
 extension Topic {
     
-    //MARK: Dimmer 1
+    // MARK: Dimmer 1
     
     /// Main room ceiling spots lights 1
     static let dimmerChannel1: Self = "/devices/dimmer/controls/Channel 1"
@@ -20,7 +20,7 @@ extension Topic {
     /// Entrancy ceiling spots lights
     static let dimmerChannel3: Self = "/devices/dimmer/controls/Channel 3"
     
-    //MARK: Dimmer 2
+    // MARK: Dimmer 2
     
     /// Sleeping room ceiling spots lights
     static let dimmer2Channel1: Self = "/devices/dimmer-2/controls/Channel 1"
@@ -31,7 +31,7 @@ extension Topic {
     ///
     static let dimmer2Channel3: Self = "/devices/dimmer-2/controls/Channel 3"
     
-    //MARK: LED Controller
+    // MARK: LED Controller
     
     /// Entrancy LED
     static let ledChannel1: Self = "/devices/led/controls/White 1"
@@ -44,8 +44,17 @@ extension Topic {
     
     /// Sleeping room LED
     static let ledChannel4: Self = "/devices/led/controls/White 4"
+
+    // MARK: - Relays
+    
+    static let entrancyMirror: Self = "/devices/relay-small-2/controls/K5"
+    
+    // MARK: - HS
+    
+    static let cookerHood: Self = "/devices/wb-gpio/controls/EXT3_HS3"
     
     // MARK: - Other
     
     static let doorbell: Self = "/devices/door/controls/doorbell-enabled"
+    
 }

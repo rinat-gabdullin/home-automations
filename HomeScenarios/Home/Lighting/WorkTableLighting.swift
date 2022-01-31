@@ -11,7 +11,7 @@ class WorkTableLighting: HueDimmerSwitchOutput, RestorableDisableContainer {
     
     let lightSwitch = Switch(topic: "/devices/relay-big-1/controls/K3")
 
-    let buttons = HueDimmerSwitch(deviceTopic: "/zigbee/HUE Buttons")
+    let buttons = HueDimmerSwitch(deviceTopic: "/zigbee/switches")
     
     var restorableDisablingDevices: [RestorableDisabling] { [lightSwitch] }
     

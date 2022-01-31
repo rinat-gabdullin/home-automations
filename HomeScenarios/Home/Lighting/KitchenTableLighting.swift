@@ -17,6 +17,7 @@ class KitchenTableLighting: MotionSensorOutput, PushButtonOutput, RestorableDisa
 
     init() {
         sensor.output = self
+        sensor.noMotionNotifyPeriod = 60 * 8
         pushButton.output = self
     }
     

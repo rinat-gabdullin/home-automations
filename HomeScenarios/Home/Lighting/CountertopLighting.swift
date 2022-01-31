@@ -5,22 +5,30 @@
 //  Created by Rinat G. on 23.01.2022.
 //
 
+import Combine
 import Foundation
 
 class CountertopLighting: MotionSensorOutput, PushButtonOutput, RestorableDisableContainer {
     
     let lightDimmer = Dimmer(topic: .ledChannel2)
-    let cookerHood = Switch(topic: "/devices/wb-gpio/controls/EXT3_HS3")
     let sensor = MotionSensor(topic: "/zigbee/kitchen/countertop-sensor/occupancy")
     let pushButton = PushButton(topic: "/devices/wb-gpio/controls/table-1")
     
+    private var subscriptions = Set<AnyCancellable>()
+    
     weak private var sensorDisableTimer: Timer?
     
-    var restorableDisablingDevices: [RestorableDisabling] { [lightDimmer, cookerHood] }
+    var restorableDisablingDevices: [RestorableDisabling] { [lightDimmer] }
     
     init() {
         sensor.output = self
         pushButton.output = self
+        
+        TopicPublisher(topic: .ledChannel2)
+            .compactMap(Int.init)
+            .map { $0 > 50 ? "1" : "0" }
+            .write(to: .cookerHood)
+            .store(in: &subscriptions)
     }
     
     func motionSensorDidDetectMotion(_ sensor: MotionSensor) {
@@ -43,6 +51,5 @@ class CountertopLighting: MotionSensorOutput, PushButtonOutput, RestorableDisabl
     
     private func set(enabled: Bool) {
         lightDimmer.relativeLevel = enabled ? 1 : 0
-        cookerHood.value = enabled
     }
 }

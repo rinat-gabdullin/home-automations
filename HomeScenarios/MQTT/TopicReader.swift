@@ -5,7 +5,7 @@
 //  Created by Rinat G. on 30.11.2021.
 //
 
-import Foundation
+import Combine
 
 protocol TopicReaderOutput: AnyObject {
     func topicReader(_ reader: TopicReader, didReceive value: Int)
@@ -17,6 +17,6 @@ extension TopicReaderOutput {
     func topicReader(_ reader: TopicReader, didReceive value: String) { }
 }
 
-class TopicReader {
+class TopicReader  {
     weak var output: TopicReaderOutput?
 }

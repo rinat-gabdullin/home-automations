@@ -5,7 +5,7 @@
 //  Created by Rinat G. on 23.01.2022.
 //
 
-import Foundation
+import Combine
 
 class EntrancyLighting: PushButtonOutput, RestorableDisableContainer {
 
@@ -13,12 +13,13 @@ class EntrancyLighting: PushButtonOutput, RestorableDisableContainer {
     
     let dimmer = Dimmer(topic: .dimmerChannel3)
     let led = Dimmer(topic: .ledChannel1)
-    let mirror = Switch(topic: "/devices/relay-small-2/controls/K5")
+
+    private var subscriptions = Set<AnyCancellable>()
 
     private let enterButton1 = PushButton(topic: "/devices/wb-gpio/controls/enter-1")
     private let enterButton2 = PushButton(topic: "/devices/wb-gpio/controls/enter-2")
 
-    var restorableDisablingDevices: [RestorableDisabling] { [dimmer, led, mirror] }
+    var restorableDisablingDevices: [RestorableDisabling] { [dimmer, led] }
     
     init() {
         [enterButton1, enterButton2].forEach { button in
@@ -27,6 +28,12 @@ class EntrancyLighting: PushButtonOutput, RestorableDisableContainer {
         }
         
         dimmer.maxValue = 100
+        
+        TopicPublisher(topic: .ledChannel1)
+            .compactMap(Int.init)
+            .map { $0 > 50 ? "1" : "0" }
+            .write(to: .entrancyMirror.on)
+            .store(in: &subscriptions)
     }
     
     func pushButton(pushButton: PushButton, didFire event: PushButtonEvent) {
@@ -42,14 +49,10 @@ class EntrancyLighting: PushButtonOutput, RestorableDisableContainer {
         case .singleClick:
             dimmer.relativeLevel = 0
             led.relativeLevel = 1
-            mirror.value = true
             
         case .doubleClick:
             dimmer.relativeLevel = 0
-            led.relativeLevel = 1
-            mirror.value = false
-            
-            break
+            led.relativeLevel = 0.1
             
         case .longPress:
             offEverywhere()
@@ -61,7 +64,6 @@ class EntrancyLighting: PushButtonOutput, RestorableDisableContainer {
         case .singleClick:
             dimmer.relativeLevel = 0.5
             led.relativeLevel = 1
-            mirror.value = true
             
         case .doubleClick:
             break
@@ -69,8 +71,6 @@ class EntrancyLighting: PushButtonOutput, RestorableDisableContainer {
         case .longPress:
             dimmer.relativeLevel = 1
             led.relativeLevel = 1
-            mirror.value = true
-            break
         }
     }
 

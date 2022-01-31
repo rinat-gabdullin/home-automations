@@ -31,6 +31,7 @@ class BathroomLighting: PushButtonOutput, RestorableDisableContainer, MotionSens
             button.detectEvents = [.longPress, .doubleClick, .singleClick]
         }
         
+        sensor.noMotionNotifyPeriod = 60 * 10
         dimmer.maxValue = 100
         sensor.output = self
     }

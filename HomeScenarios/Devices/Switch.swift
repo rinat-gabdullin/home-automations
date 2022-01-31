@@ -23,7 +23,7 @@ class Switch: RestorableDisabling {
     private let device: MutableDevice<Int>
     
     init(topic: Topic, setter: Topic? = nil) {
-        let setter = setter ?? topic.makeSetter()
+        let setter = setter ?? topic.on
         device = MutableDevice(baseTopic: topic, setterTopic: setter)
     }
     

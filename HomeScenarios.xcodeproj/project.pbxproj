@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A2B4EF227A86B9000305A6E /* TopicPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2B4EF127A86B9000305A6E /* TopicPublisher.swift */; };
 		7A362293279DF5780080A99C /* TopicWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362255279C070D0080A99C /* TopicWriter.swift */; };
 		7A362294279DF5780080A99C /* MainRoomLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A36226B279C3FD10080A99C /* MainRoomLighting.swift */; };
 		7A362295279DF5780080A99C /* CloakroomLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362277279CB8600080A99C /* CloakroomLighting.swift */; };
@@ -62,6 +63,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7A2B4EF127A86B9000305A6E /* TopicPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicPublisher.swift; sourceTree = "<group>"; };
 		7A362253279C042B0080A99C /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		7A362255279C070D0080A99C /* TopicWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicWriter.swift; sourceTree = "<group>"; };
 		7A362257279C07F00080A99C /* TopicReaderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicReaderFactory.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				7A362253279C042B0080A99C /* Topic.swift */,
 				7A362255279C070D0080A99C /* TopicWriter.swift */,
 				7AF4543F27567F8600FCAAE7 /* TopicReader.swift */,
+				7A2B4EF127A86B9000305A6E /* TopicPublisher.swift */,
 				7A362257279C07F00080A99C /* TopicReaderFactory.swift */,
 				7A362259279C08DE0080A99C /* SubscriptionController.swift */,
 				7A362267279C27090080A99C /* Payload.swift */,
@@ -328,6 +331,7 @@
 				7A362294279DF5780080A99C /* MainRoomLighting.swift in Sources */,
 				7A3622B7279DF5BD0080A99C /* Assemby.swift in Sources */,
 				7A3622A6279DF5780080A99C /* HomeState.swift in Sources */,
+				7A2B4EF227A86B9000305A6E /* TopicPublisher.swift in Sources */,
 				7A362298279DF5780080A99C /* Assembler.swift in Sources */,
 				7A3622AE279DF5790080A99C /* Device.swift in Sources */,
 				7A36229F279DF5780080A99C /* TopicReader.swift in Sources */,

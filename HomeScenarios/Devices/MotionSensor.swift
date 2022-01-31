@@ -31,13 +31,13 @@ class MotionSensor: Device<String> {
     private var minimumMotionThresthold = 100
     
     override func didChangeValue(to newValue: String) {
+
         guard
             newValue == "true" || // if topic contains Bool
             (Int(newValue) ?? 0) > minimumMotionThresthold // if topic contains "motion amount"
         else {
             return
         }
-        
         motionDetected = true
         
         if enabled {

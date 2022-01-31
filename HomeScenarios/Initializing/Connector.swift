@@ -18,7 +18,7 @@ class Connector {
     
     func connect(delegate: CocoaMQTTDelegate) {
         mqtt.delegate = delegate
-//        mqtt.logLevel = .debug
+        mqtt.logLevel = .off
         mqtt.autoReconnect = true
         _ = mqtt.connect()
     }

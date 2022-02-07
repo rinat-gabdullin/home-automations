@@ -11,7 +11,7 @@ class Dimmer: Lightning, RestorableDisabling {
     
     private var device: MutableDevice<Int>
     
-    internal init(topic: Topic) {
+    internal init(topic: TopicPath) {
         let setterTopic = topic.on
         self.device = MutableDevice(baseTopic: topic, setterTopic: setterTopic)
     }

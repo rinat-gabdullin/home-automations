@@ -10,7 +10,7 @@ import Foundation
 class TopicReaderFactory {
     @DI private var subscriptionController: SubscriptionController
     
-    func makeReader(topic: Topic) -> TopicReader {
+    func makeReader(topic: TopicPath) -> TopicReader {
         let reader = TopicReader()
         subscriptionController.register(reader: reader, for: topic)
         return reader

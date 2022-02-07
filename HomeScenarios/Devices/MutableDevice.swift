@@ -11,7 +11,7 @@ class MutableDevice<T: Payload>: Device<T> {
     
     private let writer: TopicWriter
     
-    init(baseTopic: Topic, setterTopic: Topic) {
+    init(baseTopic: TopicPath, setterTopic: TopicPath) {
         writer = TopicWriter(topic: setterTopic)
         super.init(topic: baseTopic)
     }

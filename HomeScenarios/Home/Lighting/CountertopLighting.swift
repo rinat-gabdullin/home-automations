@@ -25,9 +25,11 @@ class CountertopLighting: MotionSensorOutput, PushButtonOutput, RestorableDisabl
         pushButton.output = self
         
         TopicPublisher(topic: .ledChannel2)
+            .print()
             .compactMap(Int.init)
             .map { $0 > 50 ? "1" : "0" }
-            .write(to: .cookerHood)
+            .catch { _ in Empty() }
+            .write(to: .cookerHood.on)
             .store(in: &subscriptions)
     }
     

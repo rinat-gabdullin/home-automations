@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Topic {
+extension TopicPath {
     
     // MARK: Dimmer 1
     

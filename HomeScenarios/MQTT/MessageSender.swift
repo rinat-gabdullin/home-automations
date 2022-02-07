@@ -11,8 +11,10 @@ struct Message {
     /// To unwire from CocoaMQTT library
     let underlyingObject: CocoaMQTTMessage
     
-    init(topic: Topic, payload: Payload) {
-        underlyingObject = .init(topic: topic.path, payload: payload.payloadBytes)
+    init(topic: TopicPath, payload: Payload) {
+        let string = payload.mqttValue()
+        let bytes = [UInt8](string.utf8)
+        underlyingObject = .init(topic: topic.path, payload: bytes)
     }
 }
 

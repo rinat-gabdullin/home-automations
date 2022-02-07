@@ -7,9 +7,14 @@
 
 import Combine
 
+enum TopicPublisherError: Swift.Error {
+    case invalidType
+}
+
 extension TopicPublisher {
     
-    final class TopicSubscription<T: Subscriber>: Combine.Subscription, TopicReaderOutput where T.Input == String {
+    final class TopicSubscription<T: Subscriber>: Combine.Subscription, TopicReaderOutput
+    where T.Input == Output, T.Failure == Failure {
         
         private var reader: TopicReader?
         private var subscriber: T
@@ -33,21 +38,26 @@ extension TopicPublisher {
                 return
             }
             
+            guard let value = P(value) else {
+                subscriber.receive(completion: .failure(.invalidType))
+                return
+            }
+            
             let newDemand = subscriber.receive(value)
             demand += newDemand
         }
     }
 }
 
-final class TopicPublisher: Publisher {
+final class TopicPublisher<P: Payload>: Publisher {
 
-    typealias Output = String
-    typealias Failure = Never
+    typealias Output = P
+    typealias Failure = TopicPublisherError
 
-    let topic: Topic
+    let topic: TopicPath
     private let factory = TopicReaderFactory()
     
-    internal init(topic: Topic) {
+    internal init(topic: TopicPath) {
         self.topic = topic
     }
     
@@ -59,12 +69,13 @@ final class TopicPublisher: Publisher {
     }
 }
 
-extension Publisher where Output == String, Failure == Never {
+extension Publisher where Output: Payload, Failure == Never {
     
-    func write(to topic: Topic) -> AnyCancellable {
+    func write(to topic: TopicPath) -> AnyCancellable {
         let writer = TopicWriter(topic: topic)
         return sink { output in
             writer.write(value: output)
         }
+
     }
 }

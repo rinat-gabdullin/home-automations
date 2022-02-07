@@ -8,10 +8,10 @@
 import Foundation
 
 class TopicWriter {    
-    let topic: Topic
+    let topic: TopicPath
     private var sender = MessageSender()
     
-    internal init(topic: Topic) {
+    internal init(topic: TopicPath) {
         self.topic = topic
     }
     

@@ -32,6 +32,7 @@ class EntrancyLighting: PushButtonOutput, RestorableDisableContainer {
         TopicPublisher(topic: .ledChannel1)
             .compactMap(Int.init)
             .map { $0 > 50 ? "1" : "0" }
+            .catch { _ in Empty() }
             .write(to: .entrancyMirror.on)
             .store(in: &subscriptions)
     }

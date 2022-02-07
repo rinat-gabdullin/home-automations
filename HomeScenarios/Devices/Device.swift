@@ -11,7 +11,7 @@ class Device<T: Payload>: TopicReaderOutput {
     
     let reader: TopicReader
     
-    init(topic: Topic) {
+    init(topic: TopicPath) {
         let factory = TopicReaderFactory()
         reader = factory.makeReader(topic: topic)
         reader.output = self

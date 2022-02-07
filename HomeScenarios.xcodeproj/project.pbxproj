@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7A2B4EF227A86B9000305A6E /* TopicPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2B4EF127A86B9000305A6E /* TopicPublisher.swift */; };
+		7A2B4EF427AB292000305A6E /* WirenboardRelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2B4EF327AB292000305A6E /* WirenboardRelay.swift */; };
+		7A2B4EF727AB41E800305A6E /* WirenboardDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2B4EF627AB41E800305A6E /* WirenboardDevice.swift */; };
+		7A2B4EF927AB425500305A6E /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2B4EF827AB425500305A6E /* Control.swift */; };
+		7A2B4EFB27AB459700305A6E /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2B4EFA27AB459700305A6E /* Box.swift */; };
 		7A362293279DF5780080A99C /* TopicWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362255279C070D0080A99C /* TopicWriter.swift */; };
 		7A362294279DF5780080A99C /* MainRoomLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A36226B279C3FD10080A99C /* MainRoomLighting.swift */; };
 		7A362295279DF5780080A99C /* CloakroomLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362277279CB8600080A99C /* CloakroomLighting.swift */; };
@@ -32,7 +36,7 @@
 		7A3622A8279DF5790080A99C /* SleepingRoomLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362286279DC2D80080A99C /* SleepingRoomLighting.swift */; };
 		7A3622A9279DF5790080A99C /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF4543B27567D1F00FCAAE7 /* Parameters.swift */; };
 		7A3622AA279DF5790080A99C /* Lightning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A36226E279C45030080A99C /* Lightning.swift */; };
-		7A3622AB279DF5790080A99C /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362253279C042B0080A99C /* Topic.swift */; };
+		7A3622AB279DF5790080A99C /* TopicPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362253279C042B0080A99C /* TopicPath.swift */; };
 		7A3622AC279DF5790080A99C /* SubscriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362259279C08DE0080A99C /* SubscriptionController.swift */; };
 		7A3622AD279DF5790080A99C /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362267279C27090080A99C /* Payload.swift */; };
 		7A3622AE279DF5790080A99C /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362261279C1A200080A99C /* Device.swift */; };
@@ -64,7 +68,11 @@
 
 /* Begin PBXFileReference section */
 		7A2B4EF127A86B9000305A6E /* TopicPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicPublisher.swift; sourceTree = "<group>"; };
-		7A362253279C042B0080A99C /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
+		7A2B4EF327AB292000305A6E /* WirenboardRelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WirenboardRelay.swift; sourceTree = "<group>"; };
+		7A2B4EF627AB41E800305A6E /* WirenboardDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WirenboardDevice.swift; sourceTree = "<group>"; };
+		7A2B4EF827AB425500305A6E /* Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
+		7A2B4EFA27AB459700305A6E /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		7A362253279C042B0080A99C /* TopicPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicPath.swift; sourceTree = "<group>"; };
 		7A362255279C070D0080A99C /* TopicWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicWriter.swift; sourceTree = "<group>"; };
 		7A362257279C07F00080A99C /* TopicReaderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicReaderFactory.swift; sourceTree = "<group>"; };
 		7A362259279C08DE0080A99C /* SubscriptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionController.swift; sourceTree = "<group>"; };
@@ -88,7 +96,7 @@
 		7A362284279DBCE30080A99C /* LightingScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightingScheme.swift; sourceTree = "<group>"; };
 		7A362286279DC2D80080A99C /* SleepingRoomLighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepingRoomLighting.swift; sourceTree = "<group>"; };
 		7A36228C279DCA640080A99C /* HomeEngine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HomeEngine; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A3622BC279DFEFF0080A99C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = SOURCE_ROOT; };
+		7A3622BC279DFEFF0080A99C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = HomeScenarios/main.swift; sourceTree = SOURCE_ROOT; };
 		7A3622BE279E11B50080A99C /* HueDimmerSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HueDimmerSwitch.swift; sourceTree = "<group>"; };
 		7A3622C0279E15090080A99C /* WorkTableLighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableLighting.swift; sourceTree = "<group>"; };
 		7A3622C2279F4D670080A99C /* Doorbell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doorbell.swift; sourceTree = "<group>"; };
@@ -119,12 +127,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A2B4EF527AB41AD00305A6E /* Wirenboard */ = {
+			isa = PBXGroup;
+			children = (
+				7A2B4EF327AB292000305A6E /* WirenboardRelay.swift */,
+				7A2B4EF627AB41E800305A6E /* WirenboardDevice.swift */,
+				7A2B4EF827AB425500305A6E /* Control.swift */,
+				7A2B4EFA27AB459700305A6E /* Box.swift */,
+			);
+			path = Wirenboard;
+			sourceTree = "<group>";
+		};
 		7A36225B279C11E90080A99C /* MQTT */ = {
 			isa = PBXGroup;
 			children = (
 				7AA30B242754CDBF00E8E538 /* MQTTListener.swift */,
 				7AF4543D27567E2A00FCAAE7 /* MessageSender.swift */,
-				7A362253279C042B0080A99C /* Topic.swift */,
+				7A362253279C042B0080A99C /* TopicPath.swift */,
 				7A362255279C070D0080A99C /* TopicWriter.swift */,
 				7AF4543F27567F8600FCAAE7 /* TopicReader.swift */,
 				7A2B4EF127A86B9000305A6E /* TopicPublisher.swift */,
@@ -180,14 +199,6 @@
 			path = Lighting;
 			sourceTree = "<group>";
 		};
-		7A36228D279DCA640080A99C /* HomeEngine */ = {
-			isa = PBXGroup;
-			children = (
-				7A3622BC279DFEFF0080A99C /* main.swift */,
-			);
-			path = HomeEngine;
-			sourceTree = "<group>";
-		};
 		7A3622B4279DF5A50080A99C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,7 +219,6 @@
 			isa = PBXGroup;
 			children = (
 				7AA30B142754CCB200E8E538 /* HomeScenarios */,
-				7A36228D279DCA640080A99C /* HomeEngine */,
 				7AA30B132754CCB200E8E538 /* Products */,
 				7A3622B4279DF5A50080A99C /* Frameworks */,
 			);
@@ -225,8 +235,10 @@
 		7AA30B142754CCB200E8E538 /* HomeScenarios */ = {
 			isa = PBXGroup;
 			children = (
+				7A3622BC279DFEFF0080A99C /* main.swift */,
 				7AA30B382755176E00E8E538 /* Support */,
 				7A36225B279C11E90080A99C /* MQTT */,
+				7A2B4EF527AB41AD00305A6E /* Wirenboard */,
 				7A36225C279C12F40080A99C /* Devices */,
 				7A36226D279C3FFB0080A99C /* Home */,
 				7AA30B2B2754FE6700E8E538 /* Initializing */,
@@ -323,12 +335,15 @@
 				7A3622BD279DFEFF0080A99C /* main.swift in Sources */,
 				7A36229C279DF5780080A99C /* Dimmer.swift in Sources */,
 				7A362299279DF5780080A99C /* MutableDevice.swift in Sources */,
+				7A2B4EFB27AB459700305A6E /* Box.swift in Sources */,
+				7A2B4EF727AB41E800305A6E /* WirenboardDevice.swift in Sources */,
 				7A3622A3279DF5780080A99C /* HomeControl.swift in Sources */,
 				7A362293279DF5780080A99C /* TopicWriter.swift in Sources */,
 				7A3622C5279F4EBE0080A99C /* HomeLighting.swift in Sources */,
 				7A36229A279DF5780080A99C /* Initializer.swift in Sources */,
 				7A3622A2279DF5780080A99C /* HomeEvents.swift in Sources */,
 				7A362294279DF5780080A99C /* MainRoomLighting.swift in Sources */,
+				7A2B4EF427AB292000305A6E /* WirenboardRelay.swift in Sources */,
 				7A3622B7279DF5BD0080A99C /* Assemby.swift in Sources */,
 				7A3622A6279DF5780080A99C /* HomeState.swift in Sources */,
 				7A2B4EF227A86B9000305A6E /* TopicPublisher.swift in Sources */,
@@ -351,12 +366,13 @@
 				7A3622B3279DF5790080A99C /* MQTTListener.swift in Sources */,
 				7A362297279DF5780080A99C /* Topics.swift in Sources */,
 				7A3622AD279DF5790080A99C /* Payload.swift in Sources */,
-				7A3622AB279DF5790080A99C /* Topic.swift in Sources */,
+				7A3622AB279DF5790080A99C /* TopicPath.swift in Sources */,
 				7A3622C8279F62960080A99C /* Task.swift in Sources */,
 				7A362295279DF5780080A99C /* CloakroomLighting.swift in Sources */,
 				7A3622A8279DF5790080A99C /* SleepingRoomLighting.swift in Sources */,
 				7A36229B279DF5780080A99C /* Switch.swift in Sources */,
 				7A3622C1279E15090080A99C /* WorkTableLighting.swift in Sources */,
+				7A2B4EF927AB425500305A6E /* Control.swift in Sources */,
 				7A3622B1279DF5790080A99C /* MotionSensor.swift in Sources */,
 				7A3622A9279DF5790080A99C /* Parameters.swift in Sources */,
 			);

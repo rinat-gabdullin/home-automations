@@ -15,10 +15,10 @@ private struct WeakContainer<T: AnyObject> {
 class SubscriptionController {
     private typealias TopicWeakContainer = WeakContainer<TopicReader>
     
-    private var readers = [Topic: [TopicWeakContainer]]()
+    private var readers = [TopicPath: [TopicWeakContainer]]()
     @DI private var mqtt: CocoaMQTT
     
-    func register(reader: TopicReader, for topic: Topic) {
+    func register(reader: TopicReader, for topic: TopicPath) {
         
         subscribe(topic: topic)
         
@@ -33,7 +33,7 @@ class SubscriptionController {
     }
     
     func handle(message: CocoaMQTTMessage) {
-        let topic = Topic(path: message.topic)
+        let topic = TopicPath(path: message.topic)
         
         let containers = withoutEmptyContainers(topic: topic)
         readers[topic] = containers
@@ -58,15 +58,15 @@ class SubscriptionController {
         }
     }
     
-    private func subscribe(topic: Topic) {
+    private func subscribe(topic: TopicPath) {
         mqtt.subscribe(topic.path)
     }
     
-    private func withoutEmptyContainers(topic: Topic) -> [TopicWeakContainer] {
+    private func withoutEmptyContainers(topic: TopicPath) -> [TopicWeakContainer] {
         readers[topic, default: []].filter { $0.object != nil }
     }
     
-    private func unsubscribe(topic: Topic) {
+    private func unsubscribe(topic: TopicPath) {
         mqtt.unsubscribe(topic.path)
     }
 }

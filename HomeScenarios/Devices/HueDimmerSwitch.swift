@@ -31,10 +31,10 @@ class HueDimmerSwitch: TopicReaderOutput {
     
     private let actionReader: TopicReader
     
-    init(deviceTopic: Topic) {
+    init(deviceTopic: TopicPath) {
         let actionPath = deviceTopic.path + "/action"
         let factory = TopicReaderFactory()
-        let actionTopic = Topic(path: actionPath)
+        let actionTopic = TopicPath(path: actionPath)
         actionReader = factory.makeReader(topic: actionTopic)
         actionReader.output = self
     }

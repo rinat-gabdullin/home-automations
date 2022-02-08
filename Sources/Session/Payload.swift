@@ -7,31 +7,31 @@
 
 import Foundation
 
-protocol Payload: LosslessStringConvertible {
+public protocol Payload: LosslessStringConvertible, Codable {
     static var initialValue: Self { get }
     
     func mqttValue() -> String
 }
 
 extension Payload {
-    func mqttValue() -> String {
+    public func mqttValue() -> String {
         description
     }
 }
 
 extension Int: Payload {
-    static var initialValue: Int { -1 }
+    public static var initialValue: Int { -1 }
     
 }
 
 extension String: Payload {
-    static var initialValue: String { "" }
+    public static var initialValue: String { "" }
 }
 
 extension Bool: Payload {
-    static var initialValue = false
+    public static var initialValue = false
     
-    func mqttValue() -> String {
+    public func mqttValue() -> String {
         self ? "1" : "0"
     }
 }

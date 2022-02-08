@@ -7,7 +7,7 @@
 
 import Combine
 
-enum TopicPublisherError: Swift.Error {
+public enum TopicPublisherError: Swift.Error {
     case invalidType
 }
 
@@ -49,33 +49,23 @@ extension TopicPublisher {
     }
 }
 
-final class TopicPublisher<P: Payload>: Publisher {
+public final class TopicPublisher<P: Payload>: Publisher {
 
-    typealias Output = P
-    typealias Failure = TopicPublisherError
+    public typealias Output = P
+    public typealias Failure = TopicPublisherError
 
     let topic: TopicPath
-    private let factory = TopicReaderFactory()
+    private let session: MQTTSession
     
-    internal init(topic: TopicPath) {
+    internal init(topic: TopicPath, session: MQTTSession) {
         self.topic = topic
+        self.session = session
     }
     
-    func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
-        let reader = factory.makeReader(topic: topic)
+    public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
+        let reader = session.makeReader(for: topic)
         let subscription = TopicSubscription(reader: reader, subscriber: subscriber)
         reader.output = subscription
         subscriber.receive(subscription: subscription)
-    }
-}
-
-extension Publisher where Output: Payload, Failure == Never {
-    
-    func write(to topic: TopicPath) -> AnyCancellable {
-        let writer = TopicWriter(topic: topic)
-        return sink { output in
-            writer.write(value: output)
-        }
-
     }
 }

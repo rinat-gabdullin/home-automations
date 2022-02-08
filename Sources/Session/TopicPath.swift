@@ -8,23 +8,23 @@
 import Foundation
 
 /// MQTT Topic
-struct TopicPath: Hashable, ExpressibleByStringLiteral {
+public struct TopicPath: Hashable, ExpressibleByStringLiteral {
     let path: String
     
-    init(path value: String) {
+    public init(path value: String) {
         path = value
     }
 
-    init(stringLiteral value: String) {
+    public init(stringLiteral value: String) {
         path = value
     }
     
-    var on: TopicPath {
+    public var on: TopicPath {
         assert(!path.hasSuffix("/on"))
         return TopicPath(path: path + "/on")
     }
     
-    mutating func byReplacingLastPathComponent(to newComponent: String) -> TopicPath {
+    public mutating func byReplacingLastPathComponent(to newComponent: String) -> TopicPath {
         var path = path
         let components = path.components(separatedBy: "/")
         guard let last = components.last, let range = path.range(of: last, options: .backwards) else {

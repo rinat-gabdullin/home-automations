@@ -10,8 +10,8 @@ import Foundation
 class NewDevice {
     let topic: Control<Bool>
 
-    internal init(topic: KeyPath<Box, Control<Bool>>) {
-        self.topic = Box.shared[keyPath: topic]
+    internal init(topic: KeyPath<WirenboardHardware, Control<Bool>>) {
+        self.topic = WirenboardHardware.shared[keyPath: topic]
     }
 
 }

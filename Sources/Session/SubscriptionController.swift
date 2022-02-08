@@ -6,20 +6,24 @@
 //
 
 import Foundation
-import CocoaMQTT
+import Connection
 
 private struct WeakContainer<T: AnyObject> {
     weak var object: T?
 }
 
 class SubscriptionController {
+    
     private typealias TopicWeakContainer = WeakContainer<TopicReader>
     
     private var readers = [TopicPath: [TopicWeakContainer]]()
-    @DI private var mqtt: CocoaMQTT
+    private var mqtt: MQTTConnection
     
-    func register(reader: TopicReader, for topic: TopicPath) {
-        
+    internal init(mqtt: MQTTConnection) {
+        self.mqtt = mqtt
+    }
+
+    func register(reader: TopicReader, for topic: TopicPath) {        
         subscribe(topic: topic)
         
         let container = WeakContainer(object: reader)
@@ -32,7 +36,7 @@ class SubscriptionController {
         }
     }
     
-    func handle(message: CocoaMQTTMessage) {
+    func handle(message: MQTTMessage) {
         let topic = TopicPath(path: message.topic)
         
         let containers = withoutEmptyContainers(topic: topic)
@@ -45,21 +49,17 @@ class SubscriptionController {
         
         let readers = containers.compactMap(\.object)
         
-        guard let string = message.string else {
-            return
-        }
-        
         for reader in readers {
-            reader.output?.topicReader(reader, didReceive: string)
+            reader.output?.topicReader(reader, didReceive: message.payload)
             
-            if let integer = Int(string) {
+            if let integer = Int(message.payload) {
                 reader.output?.topicReader(reader, didReceive: integer)
             }
         }
     }
     
     private func subscribe(topic: TopicPath) {
-        mqtt.subscribe(topic.path)
+        mqtt.subscribe(topic: topic.path)
     }
     
     private func withoutEmptyContainers(topic: TopicPath) -> [TopicWeakContainer] {
@@ -67,6 +67,6 @@ class SubscriptionController {
     }
     
     private func unsubscribe(topic: TopicPath) {
-        mqtt.unsubscribe(topic.path)
+        mqtt.unsubscribe(topic: topic.path)
     }
 }

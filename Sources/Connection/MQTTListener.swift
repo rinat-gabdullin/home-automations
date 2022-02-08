@@ -8,12 +8,15 @@
 import Foundation
 import CocoaMQTT
 
-class MQTTListener: CocoaMQTTDelegate {
+class MQTTDelegate: CocoaMQTTDelegate {
     
-    @DI private var subscriptionController: SubscriptionController
+    weak var output: MQTTConnectionOutput?
+    weak var connection: MQTTConnection?
     
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
-        subscriptionController.handleConnected()
+        if let connection = connection {
+            output?.MQTTConnectionDidConnect(connection)
+        }
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
@@ -25,7 +28,9 @@ class MQTTListener: CocoaMQTTDelegate {
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
-        subscriptionController.handle(message: message)
+        if let connection = connection, let message = MQTTMessage(message: message) {
+            output?.MQTTConnectionDidReceiveMessage(connection, message: message)
+        }
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopics success: NSDictionary, failed: [String]) {

@@ -5,10 +5,9 @@
 //  Created by Rinat G. on 24.01.2022.
 //
 
+import HomeAutomations
 import Foundation
 
-let initializer = Initializer()
-let homeControl = initializer.initialize()
-homeControl.start()
+let object = Initializer().initialize()
 
 RunLoop.main.run()

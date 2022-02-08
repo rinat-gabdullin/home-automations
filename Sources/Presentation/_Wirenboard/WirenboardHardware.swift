@@ -14,14 +14,16 @@
  */
 
 import Foundation
+import Session
 
-class Box {
+final class WirenboardHardware {
     
-    static var shared = Box()
+    private let session: MQTTSession
     
-    private init() {
-        
+    internal init(session: MQTTSession) {
+        self.session = session
     }
+    
     /*
      
     /// WB-MSW v.3
@@ -70,7 +72,7 @@ class Box {
     /// - Contact 4:
     /// - Contact 5:
     /// - Contact 6: Cloakroom
-    let relayBig1 = WirenboardRelay(deviceName: "relay-big-1")
+    lazy private(set) var relayBig1 = WirenboardRelay(deviceName: "relay-big-1", session: session)
     
     /// Relay
     /// - MQTT identifier: relay-big-2
@@ -82,7 +84,7 @@ class Box {
     /// - Contact 4:
     /// - Contact 5:
     /// - Contact 6:
-    let relayBig2 = WirenboardRelay(deviceName: "relay-big-2")
+    lazy private(set) var relayBig2 = WirenboardRelay(deviceName: "relay-big-2", session: session)
     
     /// Relay
     /// - MQTT identifier: relay-small-1
@@ -94,7 +96,7 @@ class Box {
     /// - Contact 4: Balcony light
     /// - Contact 5:
     /// - Contact 6: Bedroom right lamp
-    let relaySmall1 = WirenboardRelay(deviceName: "relay-small-1")
+    lazy private(set) var relaySmall1 = WirenboardRelay(deviceName: "relay-small-1", session: session)
     
     /// Relay
     /// - MQTT identifier: relay-small-2
@@ -106,5 +108,5 @@ class Box {
     /// - Contact 4: Floor heater 2
     /// - Contact 5: Entrancy mirror LED
     /// - Contact 6:
-    let relaySmall2 = WirenboardRelay(deviceName: "relay-small-2")
+    lazy private(set) var relaySmall2 = WirenboardRelay(deviceName: "relay-small-2", session: session)
 }

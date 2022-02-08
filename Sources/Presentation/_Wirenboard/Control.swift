@@ -7,13 +7,14 @@
 
 import Foundation
 import Combine
+import Session
 
-protocol InitializableByTopicPath {
-    func initialize(topicPath: TopicPath)
+protocol DeviceControl {
+    func initialize(topicPath: TopicPath, session: MQTTSession)
 }
 
 @propertyWrapper
-class Control<T: Payload>: InitializableByTopicPath {
+class Control<T: Payload>: DeviceControl {
     
     var customPathComponent: String?
     
@@ -23,7 +24,7 @@ class Control<T: Payload>: InitializableByTopicPath {
         }
         
         set {
-            writer?.write(value: newValue)
+            writer?.publish(value: newValue)
             internalValue = newValue
         }
     }
@@ -42,16 +43,17 @@ class Control<T: Payload>: InitializableByTopicPath {
         self.customPathComponent = customPathComponent
     }
     
-    func initialize(topicPath: TopicPath) {
+    func initialize(topicPath: TopicPath, session: MQTTSession) {
         var topicPath = topicPath
         
         if let customPathComponent = customPathComponent {
             topicPath = topicPath.byReplacingLastPathComponent(to: customPathComponent)
         }
         
-        writer = TopicWriter(topic: topicPath.on)
+        writer = session.makeWriter(for: topicPath)
         
-        TopicPublisher<T>(topic: topicPath)
+        session
+            .subscribe(topicPath: topicPath)
             .catch { _ in Empty<T, Never>(completeImmediately: false) }
             .assign(to: \.internalValue, on: self)
             .store(in: &subscriptions)

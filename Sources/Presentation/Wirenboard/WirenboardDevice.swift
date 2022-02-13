@@ -1,0 +1,32 @@
+//
+//  WirenboardDevice.swift
+//  HomeEngine
+//
+//  Created by Rinat G. on 03.02.2022.
+//
+
+import Foundation
+import Session
+
+public class WirenboardDevice {
+    internal init(deviceName: String, session: MQTTSession) {
+        
+        let devicePath = "/devices/\(deviceName)/controls/"
+        
+        for child in Mirror(reflecting: self).children {
+            guard var label = child.label, let binding = child.value as? TopicBinding else {
+                continue
+            }
+            if label.first == "_" {
+                label.removeFirst()
+            }
+            
+            configure(topicBinding: binding)
+            binding.initialize(topicPath: TopicPath(path: devicePath + label), session: session)
+        }
+    }
+    
+    func configure(topicBinding: TopicBinding) {
+        
+    }
+}

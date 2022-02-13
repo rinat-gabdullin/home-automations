@@ -42,19 +42,15 @@ class SubscriptionController {
         let containers = withoutEmptyContainers(topic: topic)
         readers[topic] = containers
         
-        guard !containers.isEmpty else {
-            unsubscribe(topic: topic)
-            return
-        }
+//        guard !containers.isEmpty else {
+//            unsubscribe(topic: topic)
+//            return
+//        }
         
         let readers = containers.compactMap(\.object)
         
         for reader in readers {
             reader.output?.topicReader(reader, didReceive: message.payload)
-            
-            if let integer = Int(message.payload) {
-                reader.output?.topicReader(reader, didReceive: integer)
-            }
         }
     }
     

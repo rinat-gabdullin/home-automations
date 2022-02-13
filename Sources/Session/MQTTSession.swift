@@ -20,6 +20,7 @@ public class MQTTSession {
         self.connection = connection
         subscriptionController = SubscriptionController(mqtt: connection)
         connection.output = listener
+        listener.session = self
         
         //TODO: here?
         connection.connect()
@@ -29,11 +30,7 @@ public class MQTTSession {
         connection.publish(message: MQTTMessage(topic: topicPath.path, payload: payload) )
     }
     
-    public func subscribe<T: Payload>(topicPath: TopicPath) -> TopicPublisher<T> {
-        TopicPublisher(topic: topicPath, session: self)
-    }
-    
-    func makeReader(for topicPath: TopicPath) -> TopicReader {
+    public func makeReader(for topicPath: TopicPath) -> TopicReader {
         let reader = TopicReader()
         subscriptionController.register(reader: reader, for: topicPath)
         return reader

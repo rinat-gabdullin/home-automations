@@ -6,17 +6,16 @@
 //
 
 /// Initializes application
-public class Initializer {
-    
-    let homeControl: HomeControl
-    
-    public init() {
-        Assembler().assembly()
-        homeControl = HomeControl()
-    }
-    
-    public func initialize() -> Any {
-        homeControl.start()
-        return homeControl
-    }
-}
+//public class Initializer {
+//    
+//    let homeControl: HomeControl
+//    
+//    public init() throws {
+//        
+//    }
+//    
+//    public func initialize() -> Any {
+//        homeControl.start()
+//        return homeControl
+//    }
+//}

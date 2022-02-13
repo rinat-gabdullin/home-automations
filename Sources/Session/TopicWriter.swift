@@ -17,17 +17,7 @@ public class TopicWriter {
         self.topic = topic
     }
     
-    public func publish<T: Payload>(value: T) {
-        session.send(payload: value.mqttValue(), topicPath: topic)
-    }
-}
-
-extension Publisher where Output: Payload, Failure == Never {
-
-    func write(to token: TopicWriter) -> AnyCancellable {
-        return sink { output in
-            token.publish(value: output.mqttValue())
-        }
-
+    public func publish(payload: String) {
+        session.send(payload: payload, topicPath: topic)
     }
 }

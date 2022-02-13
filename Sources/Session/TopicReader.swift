@@ -7,16 +7,10 @@
 
 import Combine
 
-protocol TopicReaderOutput: AnyObject {
-    func topicReader(_ reader: TopicReader, didReceive value: Int)
+public protocol TopicReaderOutput: AnyObject {
     func topicReader(_ reader: TopicReader, didReceive value: String)
 }
 
-extension TopicReaderOutput {
-    func topicReader(_ reader: TopicReader, didReceive value: Int) { }
-    func topicReader(_ reader: TopicReader, didReceive value: String) { }
-}
-
-class TopicReader  {
-    weak var output: TopicReaderOutput?
+public class TopicReader  {
+    weak public var output: TopicReaderOutput?
 }

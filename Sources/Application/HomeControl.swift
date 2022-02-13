@@ -9,13 +9,19 @@ import Foundation
 
 class HomeControl {
     
-    let mqttConnector = Connector()
-    let handler = MQTTListener()
+    let rules: [Rule]
     
-    let homeState = HomeState()
-    
-    func start() {
-        mqttConnector.connect(delegate: handler)
-        
+    internal init(rules: [Rule]) {
+        self.rules = rules
     }
+
+    //    let mqttConnector = Connector()
+//    let handler = MQTTListener()
+    
+//    let homeState = HomeState()
+    
+//    func start() {
+//        mqttConnector.connect(delegate: handler)
+        
+//    }
 }

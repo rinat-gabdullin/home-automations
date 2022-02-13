@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7A3622BD279DFEFF0080A99C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3622BC279DFEFF0080A99C /* main.swift */; };
-		7AE84D1627B1CE7E00AD7235 /* HomeAutomations in Frameworks */ = {isa = PBXBuildFile; productRef = 7AE84D1527B1CE7E00AD7235 /* HomeAutomations */; };
+		7AA1CD5927B2A7D20032410E /* HomeAutomations in Frameworks */ = {isa = PBXBuildFile; productRef = 7AA1CD5827B2A7D20032410E /* HomeAutomations */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,7 +27,7 @@
 		7A36228C279DCA640080A99C /* HomeEngine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HomeEngine; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A3622BC279DFEFF0080A99C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = SOURCE_ROOT; };
 		7A3622C9279F6B740080A99C /* libswift_Concurrency.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswift_Concurrency.tbd; path = usr/lib/swift/libswift_Concurrency.tbd; sourceTree = SDKROOT; };
-		7AFD170227B2A6CE004BD79F /* home-automations */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "home-automations"; sourceTree = "<group>"; };
+		7ABC051527B2A76A007D5D93 /* Sources */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Sources; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,7 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AE84D1627B1CE7E00AD7235 /* HomeAutomations in Frameworks */,
+				7AA1CD5927B2A7D20032410E /* HomeAutomations in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,7 +53,7 @@
 		7AA30B092754CCB200E8E538 = {
 			isa = PBXGroup;
 			children = (
-				7AFD170127B2A6CE004BD79F /* Packages */,
+				7ABC051427B2A76A007D5D93 /* Packages */,
 				7A3622BC279DFEFF0080A99C /* main.swift */,
 				7AA30B132754CCB200E8E538 /* Products */,
 				7A3622B4279DF5A50080A99C /* Frameworks */,
@@ -68,10 +68,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7AFD170127B2A6CE004BD79F /* Packages */ = {
+		7ABC051427B2A76A007D5D93 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				7AFD170227B2A6CE004BD79F /* home-automations */,
+				7ABC051527B2A76A007D5D93 /* Sources */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -93,7 +93,7 @@
 			);
 			name = HomeEngine;
 			packageProductDependencies = (
-				7AE84D1527B1CE7E00AD7235 /* HomeAutomations */,
+				7AA1CD5827B2A7D20032410E /* HomeAutomations */,
 			);
 			productName = HomeEngine;
 			productReference = 7A36228C279DCA640080A99C /* HomeEngine */;
@@ -335,7 +335,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7AE84D1527B1CE7E00AD7235 /* HomeAutomations */ = {
+		7AA1CD5827B2A7D20032410E /* HomeAutomations */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HomeAutomations;
 		};

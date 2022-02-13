@@ -5,9 +5,16 @@
 //  Created by Rinat G. on 24.01.2022.
 //
 
-import HomeAutomations
+import Application
 import Foundation
 
-let object = Initializer().initialize()
+let object: Any
+
+do {
+    object = try Assembler.assembly()
+} catch {
+    assertionFailure(error.localizedDescription)
+    exit(1)
+}
 
 RunLoop.main.run()

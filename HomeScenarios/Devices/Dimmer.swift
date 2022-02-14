@@ -16,7 +16,7 @@ class Dimmer: Lightning, RestorableDisabling {
         self.device = MutableDevice(baseTopic: topic, setterTopic: setterTopic)
     }
     
-    var maxValue = 255
+    var maxValue = 100
     
     var relativeLevel: Float {
         get {

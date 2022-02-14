@@ -34,16 +34,16 @@ extension TopicPath {
     // MARK: LED Controller
     
     /// Entrancy LED
-    static let ledChannel1: Self = "/devices/led/controls/White 1"
+    static let ledChannel1: Self = "/devices/led/controls/Channel 1 (B) Brightness"
     
     /// Kitchen countertop LED
-    static let ledChannel2: Self = "/devices/led/controls/White 2"
+    static let ledChannel2: Self = "/devices/led/controls/Channel 2 (R) Brightness"
     
     /// Bathroom LED
-    static let ledChannel3: Self = "/devices/led/controls/White 3"
+    static let ledChannel3: Self = "/devices/led/controls/Channel 3 (G) Brightness"
     
     /// Sleeping room LED
-    static let ledChannel4: Self = "/devices/led/controls/White 4"
+    static let ledChannel4: Self = "/devices/led/controls/Channel 4 (W) Brightness"
 
     // MARK: - Relays
     

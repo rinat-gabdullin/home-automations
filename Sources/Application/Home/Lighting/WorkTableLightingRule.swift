@@ -9,7 +9,7 @@ import Foundation
 import Presentation
 import Combine
 
-class WorkTableLightingRule: Rule {
+class WorkTableLightingRule: LightningRule {
     init(lightSwitch: Field<Bool>, hueSwitch: AnyPublisher<HueSwitchAction, Never>) {
         super.init(restorableDisablingDevices: [lightSwitch])
         

@@ -31,8 +31,6 @@ public class WritableBinding<T: Payload>: TopicBinding {
         }
     }
     
-    internal var maxValue = T.initialValue
-    
     private var writer: TopicWriter?
     
     @Published private var internalValue = T.initialValue
@@ -51,18 +49,28 @@ public class WritableBinding<T: Payload>: TopicBinding {
         self.customPathComponent = customPathComponent
     }
     
+    public init(session: MQTTSession, zigbeeDeviceTopicPath: TopicPath) where T: Equatable {
+
+        self.writer = session.makeWriter(for: zigbeeDeviceTopicPath.set)
+        
+        TopicPublisher<T>(topic: zigbeeDeviceTopicPath, session: session)
+            .catch { _ in Just(T.initialValue) }
+            .removeDuplicates()
+            .assignWeak(to: \.internalValue, on: self)
+            .store(in: &subscriptions)
+    }
+    
     internal func initialize(topicPath: TopicPath, session: MQTTSession) {
         var topicPath = topicPath
         
         if let customPathComponent = customPathComponent {
-            topicPath = topicPath.byReplacingLastPathComponent(to: customPathComponent)
+            topicPath = topicPath.byReplacingLastPathComponent(to: customPathComponent).on
         }
         
         writer = session.makeWriter(for: topicPath)
         
         session
             .subscribe(topicPath: topicPath)
-            .catch { _ in Empty<T, Never>(completeImmediately: false) }
             .assignWeak(to: \.internalValue, on: self)
             .store(in: &subscriptions)
     }    

@@ -36,11 +36,7 @@ extension HueSwitchAction: Payload {
     
     public static var initialValue: Self { .unknown }
     
-    public var description: String {
-        rawValue
-    }
-    
-    public init?(_ description: String) {
-        self.init(rawValue: description)
+    public init?(payloadString: String) {
+        self.init(rawValue: payloadString)
     }
 }

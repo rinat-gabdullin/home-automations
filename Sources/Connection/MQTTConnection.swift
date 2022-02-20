@@ -41,7 +41,7 @@ public class MQTTConnection {
                          port: UInt16(port))
         
         mqtt.keepAlive = 60
-        mqtt.logLevel = .debug
+//        mqtt.logLevel = .debug
         mqtt.autoReconnect = true
         mqtt.delegate = listerener
         listerener.connection = self

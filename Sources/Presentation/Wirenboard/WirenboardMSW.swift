@@ -15,8 +15,8 @@ public final class WirenboardMSW: WirenboardDevice {
     @Binding("Humidity") var humidity: Double
     @Binding("CO2") var co2: Int
     @Binding("Air Quality (VOC)") var voc: Int
-    @Binding("Sound Level") var soundLevel: Int
-    @Binding("Illuminance") var illuminance: Int
+    @Binding("Sound Level") var soundLevel: Double
+    @Binding("Illuminance") var illuminance: Double
     @Binding("Max Motion") var maxMotion: Int
     @Binding("Current Motion") var currentMotion: Int
     @Binding("Buzzer") var buzzer: Bool

@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-public enum PushButtonEvent {
+public enum Action: Equatable {
     case singleClick
     case doubleClick
     case longPress
@@ -16,9 +16,10 @@ public enum PushButtonEvent {
 
 public final class PushButton: Device<Bool> {
     
-    @Published private(set) public var lastEvent = PushButtonEvent.singleClick
-    
-    public var detectEvents: [PushButtonEvent] = [.singleClick]
+    @Published private var lastAction: Action?
+    @Published private var longPressDetected = false
+
+    public var detectedActions: [Action] = [.singleClick]
 
     private weak var longPressTimer: Timer?
     private weak var singlePressTimer: Timer?
@@ -34,11 +35,27 @@ public final class PushButton: Device<Bool> {
     private var skipHoldUpEvents = true
     
     override public func didSetValue(oldValue: Bool) {
+        guard !isInitialValue else {
+            return
+        }
+        
         if value {
             holdDown()
         } else {
             holdUp()
         }
+    }
+    
+    public func onActionDetectedPublisher() -> AnyPublisher<Action, Never> {
+        $lastAction
+            .compactMap { $0 }
+            .eraseToAnyPublisher()
+    }
+
+    public func longPressPublisher() -> AnyPublisher<Bool, Never> {
+        $longPressDetected
+            .compactMap { $0 }
+            .eraseToAnyPublisher()
     }
     
     private func holdDown() {
@@ -51,7 +68,7 @@ public final class PushButton: Device<Bool> {
             self?.didDetectLongPress()
         }
         
-        if detectEvents == [.singleClick] {
+        if detectedActions == [.singleClick] {
             didDetectSingleClick()
         }
     }
@@ -61,6 +78,7 @@ public final class PushButton: Device<Bool> {
     }
 
     private func holdUp() {
+        longPressDetected = false
         singlePressTimer?.invalidate()
         longPressTimer?.invalidate()
  
@@ -77,7 +95,7 @@ public final class PushButton: Device<Bool> {
             singlePressTimer?.invalidate()
             didDetectDoubleClick()
             
-        } else if detectEvents != [.singleClick] {
+        } else if detectedActions != [.singleClick] {
             singlePressTimer = Timer.scheduledTimer(withTimeInterval: doubleClickDuration,
                                                     repeats: false) { [weak self] _ in
                 self?.singlePressTimerFire()
@@ -86,21 +104,22 @@ public final class PushButton: Device<Bool> {
     }
     
     private func didDetectSingleClick() {
-        if detectEvents.contains(.singleClick) {
-            lastEvent = .singleClick
+        if detectedActions.contains(.singleClick) {
+            lastAction = .singleClick
         }
     }
     
     private func didDetectDoubleClick() {
-        if detectEvents.contains(.doubleClick) {
-            lastEvent = .doubleClick
+        if detectedActions.contains(.doubleClick) {
+            lastAction = .doubleClick
         }
     }
     
     private func didDetectLongPress() {
+        longPressDetected = true
         skipHoldUpEvents = true
-        if detectEvents.contains(.longPress) {
-            lastEvent = .longPress
+        if detectedActions.contains(.longPress) {
+            lastAction = .longPress
         }
     }
 }

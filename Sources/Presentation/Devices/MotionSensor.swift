@@ -18,6 +18,14 @@ public protocol MotionDetection {
     func disableTemporarily()
 }
 
+public class ZigbeeSensor: MotionSensor<ZigbeeOccupancyPayload> {
+    public override func didSetValue(oldValue: ZigbeeOccupancyPayload) {
+        if value.occupancy {
+            didDetectMotion()
+        }
+    }
+}
+
 public class MSWMotionSensor: MotionSensor<Int> {
     
     private var minimumMotionThresthold = 100
@@ -35,7 +43,7 @@ public class MotionSensor<T: Payload>: Device<T>, MotionDetection {
         
     var sensorDisableDuration: TimeInterval = 60*30
     
-    var noMotionNotifyPeriod: TimeInterval = 3*60
+    public var noMotionNotifyPeriod: TimeInterval = 3*60
     
     private var enabled = true
 

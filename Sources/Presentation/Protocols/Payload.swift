@@ -7,15 +7,36 @@
 
 import Foundation
 
-public protocol Payload: LosslessStringConvertible, Codable {
+public protocol Payload {
     static var initialValue: Self { get }
     
     func mqttValue() -> String
+    
+    init?(payloadString: String)
 }
 
-extension Payload {
-    public func mqttValue() -> String {
-        description
+public extension Payload where Self: Codable {
+    func mqttValue() -> String {
+        guard
+            let data = try? JSONEncoder().encode(self),
+            let string = String(data: data, encoding: .utf8)
+        else {
+            assertionFailure("Couldn't encode")
+            return ""
+        }
+        
+        return string
+    }
+    
+    init?(payloadString: String) {
+        guard
+            let data = payloadString.data(using: .utf8),
+            let model = try? JSONDecoder().decode(Self.self, from: data)
+        else {
+            return nil
+        }
+        
+        self = model
     }
 }
 
@@ -33,6 +54,14 @@ extension Bool: Payload {
     
     public func mqttValue() -> String {
         self ? "1" : "0"
+    }
+    
+    public init?(payloadString: String) {
+        switch payloadString {
+        case "0", "false": self = false
+        case "1", "true": self = true
+        default: return nil
+        }
     }
 }
 

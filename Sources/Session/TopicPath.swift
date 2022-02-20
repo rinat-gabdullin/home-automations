@@ -24,6 +24,11 @@ public struct TopicPath: Hashable, ExpressibleByStringLiteral {
         return TopicPath(path: path + "/on")
     }
     
+    public var set: TopicPath {
+        assert(!path.hasSuffix("/set"))
+        return TopicPath(path: path + "/set")
+    }
+    
     public mutating func byReplacingLastPathComponent(to newComponent: String) -> TopicPath {
         var path = path
         let components = path.components(separatedBy: "/")

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import Presentation
 
-class Rule: RestorableDisableContainer {
+class LightningRule: RestorableDisableContainer {
     internal var subscriptions = [AnyCancellable]()
     
     let restorableDisablingDevices: [RestorableDisabling]

@@ -11,6 +11,17 @@ import Combine
 
 public final class PresentationProvider {
     
+    /// WBIO-DO-HS-8
+    /// - Contact 1:
+    /// - Contact 2:
+    /// - Contact 3: Cooker hood
+    /// - Contact 4:
+    /// - Contact 5:
+    /// - Contact 6:
+    /// - Contact 7:
+    /// - Contact 8:
+    public let wirenboardHS: WirenboardHS
+    
     /// WB-MSW v.3
     /// - MQTT identifier: sensor-bathroom
     /// - Modbus identifier: 159
@@ -100,34 +111,56 @@ public final class PresentationProvider {
     
     public let input1: WirenboardInput
     
-    public var hueSwitchAction: AnyPublisher<HueSwitchAction, Never>
+    public let hueSwitchAction: AnyPublisher<HueSwitchAction, Never>
+    
+    public let bedroomBedLight1: Field<ZigbeeLightPayload>
+    public let bedroomBedLight2: Field<ZigbeeLightPayload>
+    
+    public let mainTrackLight1: Field<ZigbeeLightPayload>
+    public let mainTrackLight2: Field<ZigbeeLightPayload>
+    public let mainTrackLight3: Field<ZigbeeLightPayload>
+    public let mainTrackLight4: Field<ZigbeeLightPayload>
+    public let mainTrackLight5: Field<ZigbeeLightPayload>
+    
+    public let mainLamp: Field<ZigbeeLightPayload>
+    
+    public let countertopSensor: ZigbeeSensor
+    public let cloakroomSensor: ZigbeeSensor
+    public let kitchenTableSensor: ZigbeeSensor
     
     public init(serverUrl: URL) throws {
         let session = try MQTTSession(serverUrl: serverUrl)
 
+        wirenboardHS = WirenboardHS(deviceName: "wb-gpio", session: session)
         sensorBathroom = WirenboardMSW(deviceName: "sensor-bathroom", session: session)
-        
         sensorHall = WirenboardMSW(deviceName: "sensor-hall", session: session)
-        
         dimmer1 = WirenboardMDM3(deviceName: "dimmer", session: session)
-        
         dimmer2 = WirenboardMDM3(deviceName: "dimmer-2", session: session)
-        
         led = WirenboardMRGBW(deviceName: "led", session: session)
-        
         relayBig1 = WirenboardRelay(deviceName: "relay-big-1", session: session)
-        
         relayBig2 = WirenboardRelay(deviceName: "relay-big-2", session: session)
-        
         relaySmall1 = WirenboardRelay(deviceName: "relay-small-1", session: session)
-        
         relaySmall2 = WirenboardRelay(deviceName: "relay-small-2", session: session)
-        
         input1 = WirenboardInput(deviceName: "wb-gpio", session: session)
         
         hueSwitchAction = TopicPublisher(topic: "/zigbee/switches/action", session: session)
             .catch { _ in Empty(completeImmediately: false) }
             .removeDuplicates()
             .eraseToAnyPublisher()
+        
+        bedroomBedLight1 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/sleeping/bra").projectedValue
+        bedroomBedLight2 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/sleeping/lamp").projectedValue
+
+        mainTrackLight1 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/main/track-1").projectedValue
+        mainTrackLight2 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/main/track-2").projectedValue
+        mainTrackLight3 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/main/track-3").projectedValue
+        mainTrackLight4 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/main/track-4").projectedValue
+        mainTrackLight5 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/main/track-5").projectedValue
+
+        mainLamp = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/main/shelf").projectedValue
+
+        countertopSensor = ZigbeeSensor(publisher: session.subscribe(topicPath: "/zigbee/kitchen/countertop-sensor"))
+        kitchenTableSensor = ZigbeeSensor(publisher: session.subscribe(topicPath: "/zigbee/kitchen/table-sensor"))
+        cloakroomSensor = ZigbeeSensor(publisher: session.subscribe(topicPath: "/zigbee/enter/cloakroom-sensor"))
     }
 }

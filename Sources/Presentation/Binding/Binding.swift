@@ -15,12 +15,14 @@ public class Binding<T: Payload>: TopicBinding {
     
     var customPathComponent: String?
     
+    private var debugDescription = ""
+    
     @Published public private(set) var wrappedValue = T.initialValue
     
     private var subscriptions = Set<AnyCancellable>()
     
     public var projectedValue: AnyPublisher<T, Never> {
-        $wrappedValue.eraseToAnyPublisher()
+        $wrappedValue.print(debugDescription).eraseToAnyPublisher()
     }
     
     public init(_ customPathComponent: String? = nil) {
@@ -28,6 +30,7 @@ public class Binding<T: Payload>: TopicBinding {
     }
     
     func initialize(topicPath: TopicPath, session: MQTTSession) {
+        debugDescription = "BINDING: \(customPathComponent ?? "")"
         var topicPath = topicPath
         
         if let customPathComponent = customPathComponent {
@@ -36,10 +39,8 @@ public class Binding<T: Payload>: TopicBinding {
         
         session
             .subscribe(topicPath: topicPath)
-            .catch { _ in Empty<T, Never>(completeImmediately: false) }
-            .sink(receiveValue: { [weak self] newValue in
-                self?.wrappedValue = newValue
-            })
+            .breakpointOnError()
+            .assignWeak(to: \.wrappedValue, on: self)
             .store(in: &subscriptions)
     }
     

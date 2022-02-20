@@ -9,9 +9,9 @@ import Combine
 import Presentation
 import CodeSupport
 
-class EntrancyLighting: Rule {
+class EntrancyLighting: LightningRule {
     
-    @Published var state = LightingState.off
+    @Published private var state = LightingState.off 
     
     private let leftButton: PushButton
     private let rightButton: PushButton
@@ -27,20 +27,20 @@ class EntrancyLighting: Rule {
         self.rightButton = rightButton
         
         [leftButton, rightButton].forEach { button in
-            button.detectEvents = [.longPress, .doubleClick, .singleClick]
+            button.detectedActions = [.longPress, .doubleClick, .singleClick]
         }
         
-        super.init(restorableDisablingDevices: [dimmer, led])
+        super.init(restorableDisablingDevices: [dimmer, led, mirrorSwitch])
         
         // Light control buttons handling:
                 
         leftButton
-            .$lastEvent
+            .onActionDetectedPublisher()
             .compactMap { (event) -> (LightingState?) in
                 switch event {
                 case .singleClick: return .lounge
                 case .doubleClick: return .off
-                case .longPress: return .off
+                case .longPress: return nil
                 }
             }
             .assignWeak(to: \.state, on: self)
@@ -48,7 +48,7 @@ class EntrancyLighting: Rule {
         
         
         rightButton
-            .$lastEvent
+            .onActionDetectedPublisher()
             .compactMap { (event) -> (LightingState?) in
                 switch event {
                 case .singleClick: return .auto
@@ -59,20 +59,34 @@ class EntrancyLighting: Rule {
             .assignWeak(to: \.state, on: self)
             .store(in: &subscriptions)
         
-        // State handling for dimmer:
-        
+        // State handling for dimmer and led:
+
         $state
-            .map { state -> Double in
+            .map { state -> Int in
+                switch state {
+                case .off:
+                    return 0
+                case .auto, .lounge:
+                    return 50
+                case .bright:
+                    return 100
+                }
+            }
+            .write(to: led)
+            .store(in: &subscriptions)
+
+        $state
+            .map { state -> Int in
                 switch state {
                 case .off, .lounge:
                     return 0
                 case .auto:
-                    return 0.5
+                    return 50
                 case .bright:
-                    return 1
+                    return 100
                 }
             }
-            .writeRelative(to: dimmer)
+            .write(to: dimmer)
             .store(in: &subscriptions)
 
         // State handling for mirror backlight:
@@ -86,77 +100,14 @@ class EntrancyLighting: Rule {
             }
             .write(to: mirrorSwitch)
             .store(in: &subscriptions)
+        
     }
     
     func onTurnOffEverything() -> AnyPublisher<Void, Never> {
         leftButton
-            .$lastEvent
-            .removeDuplicates()
-            .filter { $0 == .doubleClick }
+            .onActionDetectedPublisher()
+            .filter { $0 == .longPress }
             .map { _ in Void() }
             .eraseToAnyPublisher()
     }
-    
-    /*
-    weak var homeEventsHandler: HomeEvents?
-    
-    let dimmer = Dimmer(topic: .dimmerChannel3)
-    let led = Dimmer(topic: .ledChannel1)
-
-    private var subscriptions = Set<AnyCancellable>()
-
-    private let enterButton1 = PushButton(topic: "/devices/wb-gpio/controls/enter-1")
-    private let enterButton2 = PushButton(topic: "/devices/wb-gpio/controls/enter-2")
-
-    var restorableDisablingDevices: [RestorableDisabling] { [dimmer, led] }
-    
-    init() {
-        
-        dimmer.maxValue = 100
-        
-    }
-    
-    func pushButton(pushButton: PushButton, didFire event: PushButtonEvent) {
-        if pushButton === enterButton1 {
-            leftButton(event: event)
-        } else if pushButton === enterButton2 {
-            rightButton(event: event)
-        }
-    }
-    
-    private func leftButton(event: PushButtonEvent) {
-        switch event {
-        case .singleClick:
-            dimmer.relativeLevel = 0
-            led.relativeLevel = 1
-            
-        case .doubleClick:
-            dimmer.relativeLevel = 0
-            led.relativeLevel = 0.1
-            
-        case .longPress:
-            offEverywhere()
-        }
-    }
-    
-    private func rightButton(event: PushButtonEvent) {
-        switch event {
-        case .singleClick:
-            dimmer.relativeLevel = 0.5
-            led.relativeLevel = 1
-            
-        case .doubleClick:
-            break
-            
-        case .longPress:
-            dimmer.relativeLevel = 1
-            led.relativeLevel = 1
-        }
-    }
-
-    private func offEverywhere() {
-        homeEventsHandler?.switchLightsEverywhere()
-    }
-    
-    */
 }

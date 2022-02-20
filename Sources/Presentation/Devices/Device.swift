@@ -12,9 +12,12 @@ import CodeSupport
 
 public class Device<T: Payload> {
     
+    private(set) var isInitialValue = true
+    
     @Published internal(set) public var value = T.initialValue {
         didSet {
             didSetValue(oldValue: oldValue)
+            isInitialValue = false
         }
     }
     

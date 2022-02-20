@@ -12,10 +12,6 @@ import Combine
 public class Field<T: Payload> {
     private let binding: WritableBinding<T>
     
-    var maxValue: T {
-        binding.maxValue
-    }
-    
     public var wrappedValue: T {
         get { binding.wrappedValue }
         set { binding.wrappedValue = newValue }
@@ -29,37 +25,24 @@ public class Field<T: Payload> {
         self.binding = binding
     }
     
-    private var lastRestorationToken: Restoration? {
+    private var lastRestorationToken: RestorationToken? {
         didSet {
             oldValue?.invalidate()
         }
     }
-}
 
-extension Field: RelativeSetting where T: BinaryInteger {
-    public var relativeValue: Double {
-        get {
-            assert(maxValue != .initialValue)
-            return Double(wrappedValue) / Double(maxValue)
-        }
-        
-        set {
-            assert(maxValue != .initialValue)
-            wrappedValue = T(Double(maxValue) * newValue)
-        }
-    }
 }
 
 extension Field: RestorableDisabling where T: ProvidingDisabledValue {
     
-    public func setDisabled() -> Restoration {
+    public func setDisabled() -> RestorationToken {
         if wrappedValue == .disabledValue {
-            return Restoration(onRestore: nil)
+            return RestorationToken(onRestore: nil)
         }
         
         let currentValue = wrappedValue
         
-        let token = Restoration { [weak self] in
+        let token = RestorationToken { [weak self] in
             self?.wrappedValue = currentValue
         }
         

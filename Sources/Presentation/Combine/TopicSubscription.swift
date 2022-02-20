@@ -40,7 +40,7 @@ extension TopicPublisher {
                 return
             }
             
-            guard let value = P(value) else {
+            guard let value = P(payloadString: value) else {
                 subscriber.receive(completion: .failure(.invalidType))
                 return
             }

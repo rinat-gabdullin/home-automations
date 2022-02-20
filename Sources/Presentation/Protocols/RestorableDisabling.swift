@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class Restoration {
+public class RestorationToken {
     
     private var onRestore: (() -> Void)?
     
@@ -19,7 +19,7 @@ public class Restoration {
         onRestore = nil
     }
     
-    func restore() {
+    public func restore() {
         onRestore?()
         invalidate()
     }
@@ -29,7 +29,7 @@ public protocol RestorableDisabling {
     /// Disabled the device and return one-time state restoration token.
     /// Only one token on moment of time is valid, when receivent new one, older token is invalidated.
     /// Does nothing if device already disabled
-    func setDisabled() -> Restoration
+    func setDisabled() -> RestorationToken
 }
 
 public protocol RestorableDisableContainer: RestorableDisabling {
@@ -37,9 +37,9 @@ public protocol RestorableDisableContainer: RestorableDisabling {
 }
 
 public extension RestorableDisableContainer {
-    func setDisabled() -> Restoration {
+    func setDisabled() -> RestorationToken {
         let childTokens = restorableDisablingDevices.map { $0.setDisabled() }
-        return Restoration {
+        return RestorationToken {
             childTokens.forEach { token in
                 token.restore()
             }

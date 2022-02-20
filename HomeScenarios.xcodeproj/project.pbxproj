@@ -7,51 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7A2B4EF227A86B9000305A6E /* TopicPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2B4EF127A86B9000305A6E /* TopicPublisher.swift */; };
-		7A2B4EF427AB292000305A6E /* WirenboardRelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2B4EF327AB292000305A6E /* WirenboardRelay.swift */; };
-		7A2B4EF727AB41E800305A6E /* WirenboardDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2B4EF627AB41E800305A6E /* WirenboardDevice.swift */; };
-		7A2B4EF927AB425500305A6E /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2B4EF827AB425500305A6E /* Control.swift */; };
-		7A2B4EFB27AB459700305A6E /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2B4EFA27AB459700305A6E /* Box.swift */; };
-		7A362293279DF5780080A99C /* TopicWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362255279C070D0080A99C /* TopicWriter.swift */; };
-		7A362294279DF5780080A99C /* MainRoomLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A36226B279C3FD10080A99C /* MainRoomLighting.swift */; };
-		7A362295279DF5780080A99C /* CloakroomLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362277279CB8600080A99C /* CloakroomLighting.swift */; };
-		7A362296279DF5780080A99C /* MessageSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF4543D27567E2A00FCAAE7 /* MessageSender.swift */; };
-		7A362297279DF5780080A99C /* Topics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A36227B279D45190080A99C /* Topics.swift */; };
-		7A362298279DF5780080A99C /* Assembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA30B36275516FE00E8E538 /* Assembler.swift */; };
-		7A362299279DF5780080A99C /* MutableDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A36225F279C160A0080A99C /* MutableDevice.swift */; };
-		7A36229A279DF5780080A99C /* Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA30B3027550C2F00E8E538 /* Initializer.swift */; };
-		7A36229B279DF5780080A99C /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362263279C1A5B0080A99C /* Switch.swift */; };
-		7A36229C279DF5780080A99C /* Dimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362265279C23EF0080A99C /* Dimmer.swift */; };
-		7A36229D279DF5780080A99C /* EntrancyLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362279279D3B170080A99C /* EntrancyLighting.swift */; };
-		7A36229E279DF5780080A99C /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A36225D279C132B0080A99C /* PushButton.swift */; };
-		7A36229F279DF5780080A99C /* TopicReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF4543F27567F8600FCAAE7 /* TopicReader.swift */; };
-		7A3622A0279DF5780080A99C /* CountertopLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362275279CAD1A0080A99C /* CountertopLighting.swift */; };
-		7A3622A1279DF5780080A99C /* LightingScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362284279DBCE30080A99C /* LightingScheme.swift */; };
-		7A3622A2279DF5780080A99C /* HomeEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A36227E279D62E00080A99C /* HomeEvents.swift */; };
-		7A3622A3279DF5780080A99C /* HomeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA30B2E2754FFF500E8E538 /* HomeControl.swift */; };
-		7A3622A4279DF5780080A99C /* RestorableDisabling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362280279D8F470080A99C /* RestorableDisabling.swift */; };
-		7A3622A5279DF5780080A99C /* KitchenTableLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362271279C9A370080A99C /* KitchenTableLighting.swift */; };
-		7A3622A6279DF5780080A99C /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF4544127567F9F00FCAAE7 /* HomeState.swift */; };
-		7A3622A7279DF5780080A99C /* BathroomLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362282279D9D220080A99C /* BathroomLighting.swift */; };
-		7A3622A8279DF5790080A99C /* SleepingRoomLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362286279DC2D80080A99C /* SleepingRoomLighting.swift */; };
-		7A3622A9279DF5790080A99C /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF4543B27567D1F00FCAAE7 /* Parameters.swift */; };
-		7A3622AA279DF5790080A99C /* Lightning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A36226E279C45030080A99C /* Lightning.swift */; };
-		7A3622AB279DF5790080A99C /* TopicPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362253279C042B0080A99C /* TopicPath.swift */; };
-		7A3622AC279DF5790080A99C /* SubscriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362259279C08DE0080A99C /* SubscriptionController.swift */; };
-		7A3622AD279DF5790080A99C /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362267279C27090080A99C /* Payload.swift */; };
-		7A3622AE279DF5790080A99C /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362261279C1A200080A99C /* Device.swift */; };
-		7A3622AF279DF5790080A99C /* TopicReaderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362257279C07F00080A99C /* TopicReaderFactory.swift */; };
-		7A3622B1279DF5790080A99C /* MotionSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A362273279C9AB00080A99C /* MotionSensor.swift */; };
-		7A3622B2279DF5790080A99C /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA30B2C2754FE7600E8E538 /* Connector.swift */; };
-		7A3622B3279DF5790080A99C /* MQTTListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA30B242754CDBF00E8E538 /* MQTTListener.swift */; };
-		7A3622B6279DF5A50080A99C /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 7A3622B5279DF5A50080A99C /* CocoaMQTT */; };
-		7A3622B7279DF5BD0080A99C /* Assemby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA30B3227550C8F00E8E538 /* Assemby.swift */; };
 		7A3622BD279DFEFF0080A99C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3622BC279DFEFF0080A99C /* main.swift */; };
-		7A3622BF279E11B50080A99C /* HueDimmerSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3622BE279E11B50080A99C /* HueDimmerSwitch.swift */; };
-		7A3622C1279E15090080A99C /* WorkTableLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3622C0279E15090080A99C /* WorkTableLighting.swift */; };
-		7A3622C3279F4D670080A99C /* Doorbell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3622C2279F4D670080A99C /* Doorbell.swift */; };
-		7A3622C5279F4EBE0080A99C /* HomeLighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3622C4279F4EBE0080A99C /* HomeLighting.swift */; };
-		7A3622C8279F62960080A99C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3622C7279F62960080A99C /* Task.swift */; };
+		7AA1CD5927B2A7D20032410E /* HomeAutomations in Frameworks */ = {isa = PBXBuildFile; productRef = 7AA1CD5827B2A7D20032410E /* HomeAutomations */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,52 +24,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7A2B4EF127A86B9000305A6E /* TopicPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicPublisher.swift; sourceTree = "<group>"; };
-		7A2B4EF327AB292000305A6E /* WirenboardRelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WirenboardRelay.swift; sourceTree = "<group>"; };
-		7A2B4EF627AB41E800305A6E /* WirenboardDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WirenboardDevice.swift; sourceTree = "<group>"; };
-		7A2B4EF827AB425500305A6E /* Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
-		7A2B4EFA27AB459700305A6E /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
-		7A362253279C042B0080A99C /* TopicPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicPath.swift; sourceTree = "<group>"; };
-		7A362255279C070D0080A99C /* TopicWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicWriter.swift; sourceTree = "<group>"; };
-		7A362257279C07F00080A99C /* TopicReaderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicReaderFactory.swift; sourceTree = "<group>"; };
-		7A362259279C08DE0080A99C /* SubscriptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionController.swift; sourceTree = "<group>"; };
-		7A36225D279C132B0080A99C /* PushButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
-		7A36225F279C160A0080A99C /* MutableDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableDevice.swift; sourceTree = "<group>"; };
-		7A362261279C1A200080A99C /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
-		7A362263279C1A5B0080A99C /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
-		7A362265279C23EF0080A99C /* Dimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dimmer.swift; sourceTree = "<group>"; };
-		7A362267279C27090080A99C /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
-		7A36226B279C3FD10080A99C /* MainRoomLighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRoomLighting.swift; sourceTree = "<group>"; };
-		7A36226E279C45030080A99C /* Lightning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lightning.swift; sourceTree = "<group>"; };
-		7A362271279C9A370080A99C /* KitchenTableLighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KitchenTableLighting.swift; sourceTree = "<group>"; };
-		7A362273279C9AB00080A99C /* MotionSensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionSensor.swift; sourceTree = "<group>"; };
-		7A362275279CAD1A0080A99C /* CountertopLighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountertopLighting.swift; sourceTree = "<group>"; };
-		7A362277279CB8600080A99C /* CloakroomLighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloakroomLighting.swift; sourceTree = "<group>"; };
-		7A362279279D3B170080A99C /* EntrancyLighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntrancyLighting.swift; sourceTree = "<group>"; };
-		7A36227B279D45190080A99C /* Topics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topics.swift; sourceTree = "<group>"; };
-		7A36227E279D62E00080A99C /* HomeEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEvents.swift; sourceTree = "<group>"; };
-		7A362280279D8F470080A99C /* RestorableDisabling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorableDisabling.swift; sourceTree = "<group>"; };
-		7A362282279D9D220080A99C /* BathroomLighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BathroomLighting.swift; sourceTree = "<group>"; };
-		7A362284279DBCE30080A99C /* LightingScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightingScheme.swift; sourceTree = "<group>"; };
-		7A362286279DC2D80080A99C /* SleepingRoomLighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepingRoomLighting.swift; sourceTree = "<group>"; };
 		7A36228C279DCA640080A99C /* HomeEngine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HomeEngine; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A3622BC279DFEFF0080A99C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = HomeScenarios/main.swift; sourceTree = SOURCE_ROOT; };
-		7A3622BE279E11B50080A99C /* HueDimmerSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HueDimmerSwitch.swift; sourceTree = "<group>"; };
-		7A3622C0279E15090080A99C /* WorkTableLighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableLighting.swift; sourceTree = "<group>"; };
-		7A3622C2279F4D670080A99C /* Doorbell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doorbell.swift; sourceTree = "<group>"; };
-		7A3622C4279F4EBE0080A99C /* HomeLighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLighting.swift; sourceTree = "<group>"; };
-		7A3622C7279F62960080A99C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		7A3622BC279DFEFF0080A99C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = SOURCE_ROOT; };
 		7A3622C9279F6B740080A99C /* libswift_Concurrency.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswift_Concurrency.tbd; path = usr/lib/swift/libswift_Concurrency.tbd; sourceTree = SDKROOT; };
-		7AA30B242754CDBF00E8E538 /* MQTTListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTListener.swift; sourceTree = "<group>"; };
-		7AA30B2C2754FE7600E8E538 /* Connector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connector.swift; sourceTree = "<group>"; };
-		7AA30B2E2754FFF500E8E538 /* HomeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControl.swift; sourceTree = "<group>"; };
-		7AA30B3027550C2F00E8E538 /* Initializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializer.swift; sourceTree = "<group>"; };
-		7AA30B3227550C8F00E8E538 /* Assemby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assemby.swift; sourceTree = "<group>"; };
-		7AA30B36275516FE00E8E538 /* Assembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembler.swift; sourceTree = "<group>"; };
-		7AF4543B27567D1F00FCAAE7 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
-		7AF4543D27567E2A00FCAAE7 /* MessageSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSender.swift; sourceTree = "<group>"; };
-		7AF4543F27567F8600FCAAE7 /* TopicReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicReader.swift; sourceTree = "<group>"; };
-		7AF4544127567F9F00FCAAE7 /* HomeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
+		7ABC051527B2A76A007D5D93 /* Sources */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Sources; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,85 +35,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A3622B6279DF5A50080A99C /* CocoaMQTT in Frameworks */,
+				7AA1CD5927B2A7D20032410E /* HomeAutomations in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7A2B4EF527AB41AD00305A6E /* Wirenboard */ = {
-			isa = PBXGroup;
-			children = (
-				7A2B4EF327AB292000305A6E /* WirenboardRelay.swift */,
-				7A2B4EF627AB41E800305A6E /* WirenboardDevice.swift */,
-				7A2B4EF827AB425500305A6E /* Control.swift */,
-				7A2B4EFA27AB459700305A6E /* Box.swift */,
-			);
-			path = Wirenboard;
-			sourceTree = "<group>";
-		};
-		7A36225B279C11E90080A99C /* MQTT */ = {
-			isa = PBXGroup;
-			children = (
-				7AA30B242754CDBF00E8E538 /* MQTTListener.swift */,
-				7AF4543D27567E2A00FCAAE7 /* MessageSender.swift */,
-				7A362253279C042B0080A99C /* TopicPath.swift */,
-				7A362255279C070D0080A99C /* TopicWriter.swift */,
-				7AF4543F27567F8600FCAAE7 /* TopicReader.swift */,
-				7A2B4EF127A86B9000305A6E /* TopicPublisher.swift */,
-				7A362257279C07F00080A99C /* TopicReaderFactory.swift */,
-				7A362259279C08DE0080A99C /* SubscriptionController.swift */,
-				7A362267279C27090080A99C /* Payload.swift */,
-			);
-			path = MQTT;
-			sourceTree = "<group>";
-		};
-		7A36225C279C12F40080A99C /* Devices */ = {
-			isa = PBXGroup;
-			children = (
-				7A362261279C1A200080A99C /* Device.swift */,
-				7A36225F279C160A0080A99C /* MutableDevice.swift */,
-				7A36225D279C132B0080A99C /* PushButton.swift */,
-				7A362263279C1A5B0080A99C /* Switch.swift */,
-				7A362265279C23EF0080A99C /* Dimmer.swift */,
-				7A36226E279C45030080A99C /* Lightning.swift */,
-				7A362280279D8F470080A99C /* RestorableDisabling.swift */,
-				7A362273279C9AB00080A99C /* MotionSensor.swift */,
-				7A3622BE279E11B50080A99C /* HueDimmerSwitch.swift */,
-			);
-			path = Devices;
-			sourceTree = "<group>";
-		};
-		7A36226D279C3FFB0080A99C /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				7A36227D279D62A10080A99C /* Lighting */,
-				7A3622C6279F50A50080A99C /* Other */,
-				7AF4544127567F9F00FCAAE7 /* HomeState.swift */,
-				7A36227B279D45190080A99C /* Topics.swift */,
-				7A362284279DBCE30080A99C /* LightingScheme.swift */,
-				7A36227E279D62E00080A99C /* HomeEvents.swift */,
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
-		7A36227D279D62A10080A99C /* Lighting */ = {
-			isa = PBXGroup;
-			children = (
-				7A3622C4279F4EBE0080A99C /* HomeLighting.swift */,
-				7A36226B279C3FD10080A99C /* MainRoomLighting.swift */,
-				7A362271279C9A370080A99C /* KitchenTableLighting.swift */,
-				7A3622C0279E15090080A99C /* WorkTableLighting.swift */,
-				7A362275279CAD1A0080A99C /* CountertopLighting.swift */,
-				7A362277279CB8600080A99C /* CloakroomLighting.swift */,
-				7A362279279D3B170080A99C /* EntrancyLighting.swift */,
-				7A362282279D9D220080A99C /* BathroomLighting.swift */,
-				7A362286279DC2D80080A99C /* SleepingRoomLighting.swift */,
-			);
-			path = Lighting;
-			sourceTree = "<group>";
-		};
 		7A3622B4279DF5A50080A99C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,18 +50,11 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7A3622C6279F50A50080A99C /* Other */ = {
-			isa = PBXGroup;
-			children = (
-				7A3622C2279F4D670080A99C /* Doorbell.swift */,
-			);
-			path = Other;
-			sourceTree = "<group>";
-		};
 		7AA30B092754CCB200E8E538 = {
 			isa = PBXGroup;
 			children = (
-				7AA30B142754CCB200E8E538 /* HomeScenarios */,
+				7ABC051427B2A76A007D5D93 /* Packages */,
+				7A3622BC279DFEFF0080A99C /* main.swift */,
 				7AA30B132754CCB200E8E538 /* Products */,
 				7A3622B4279DF5A50080A99C /* Frameworks */,
 			);
@@ -232,39 +68,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7AA30B142754CCB200E8E538 /* HomeScenarios */ = {
+		7ABC051427B2A76A007D5D93 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				7A3622BC279DFEFF0080A99C /* main.swift */,
-				7AA30B382755176E00E8E538 /* Support */,
-				7A36225B279C11E90080A99C /* MQTT */,
-				7A2B4EF527AB41AD00305A6E /* Wirenboard */,
-				7A36225C279C12F40080A99C /* Devices */,
-				7A36226D279C3FFB0080A99C /* Home */,
-				7AA30B2B2754FE6700E8E538 /* Initializing */,
+				7ABC051527B2A76A007D5D93 /* Sources */,
 			);
-			path = HomeScenarios;
-			sourceTree = "<group>";
-		};
-		7AA30B2B2754FE6700E8E538 /* Initializing */ = {
-			isa = PBXGroup;
-			children = (
-				7AA30B2E2754FFF500E8E538 /* HomeControl.swift */,
-				7AA30B2C2754FE7600E8E538 /* Connector.swift */,
-				7AA30B3027550C2F00E8E538 /* Initializer.swift */,
-				7AA30B36275516FE00E8E538 /* Assembler.swift */,
-				7AF4543B27567D1F00FCAAE7 /* Parameters.swift */,
-			);
-			path = Initializing;
-			sourceTree = "<group>";
-		};
-		7AA30B382755176E00E8E538 /* Support */ = {
-			isa = PBXGroup;
-			children = (
-				7AA30B3227550C8F00E8E538 /* Assemby.swift */,
-				7A3622C7279F62960080A99C /* Task.swift */,
-			);
-			path = Support;
+			name = Packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,7 +93,7 @@
 			);
 			name = HomeEngine;
 			packageProductDependencies = (
-				7A3622B5279DF5A50080A99C /* CocoaMQTT */,
+				7AA1CD5827B2A7D20032410E /* HomeAutomations */,
 			);
 			productName = HomeEngine;
 			productReference = 7A36228C279DCA640080A99C /* HomeEngine */;
@@ -331,50 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A3622AC279DF5790080A99C /* SubscriptionController.swift in Sources */,
 				7A3622BD279DFEFF0080A99C /* main.swift in Sources */,
-				7A36229C279DF5780080A99C /* Dimmer.swift in Sources */,
-				7A362299279DF5780080A99C /* MutableDevice.swift in Sources */,
-				7A2B4EFB27AB459700305A6E /* Box.swift in Sources */,
-				7A2B4EF727AB41E800305A6E /* WirenboardDevice.swift in Sources */,
-				7A3622A3279DF5780080A99C /* HomeControl.swift in Sources */,
-				7A362293279DF5780080A99C /* TopicWriter.swift in Sources */,
-				7A3622C5279F4EBE0080A99C /* HomeLighting.swift in Sources */,
-				7A36229A279DF5780080A99C /* Initializer.swift in Sources */,
-				7A3622A2279DF5780080A99C /* HomeEvents.swift in Sources */,
-				7A362294279DF5780080A99C /* MainRoomLighting.swift in Sources */,
-				7A2B4EF427AB292000305A6E /* WirenboardRelay.swift in Sources */,
-				7A3622B7279DF5BD0080A99C /* Assemby.swift in Sources */,
-				7A3622A6279DF5780080A99C /* HomeState.swift in Sources */,
-				7A2B4EF227A86B9000305A6E /* TopicPublisher.swift in Sources */,
-				7A362298279DF5780080A99C /* Assembler.swift in Sources */,
-				7A3622AE279DF5790080A99C /* Device.swift in Sources */,
-				7A36229F279DF5780080A99C /* TopicReader.swift in Sources */,
-				7A3622C3279F4D670080A99C /* Doorbell.swift in Sources */,
-				7A3622B2279DF5790080A99C /* Connector.swift in Sources */,
-				7A362296279DF5780080A99C /* MessageSender.swift in Sources */,
-				7A3622AF279DF5790080A99C /* TopicReaderFactory.swift in Sources */,
-				7A3622A4279DF5780080A99C /* RestorableDisabling.swift in Sources */,
-				7A3622A0279DF5780080A99C /* CountertopLighting.swift in Sources */,
-				7A3622AA279DF5790080A99C /* Lightning.swift in Sources */,
-				7A36229D279DF5780080A99C /* EntrancyLighting.swift in Sources */,
-				7A3622A5279DF5780080A99C /* KitchenTableLighting.swift in Sources */,
-				7A3622BF279E11B50080A99C /* HueDimmerSwitch.swift in Sources */,
-				7A3622A1279DF5780080A99C /* LightingScheme.swift in Sources */,
-				7A36229E279DF5780080A99C /* PushButton.swift in Sources */,
-				7A3622A7279DF5780080A99C /* BathroomLighting.swift in Sources */,
-				7A3622B3279DF5790080A99C /* MQTTListener.swift in Sources */,
-				7A362297279DF5780080A99C /* Topics.swift in Sources */,
-				7A3622AD279DF5790080A99C /* Payload.swift in Sources */,
-				7A3622AB279DF5790080A99C /* TopicPath.swift in Sources */,
-				7A3622C8279F62960080A99C /* Task.swift in Sources */,
-				7A362295279DF5780080A99C /* CloakroomLighting.swift in Sources */,
-				7A3622A8279DF5790080A99C /* SleepingRoomLighting.swift in Sources */,
-				7A36229B279DF5780080A99C /* Switch.swift in Sources */,
-				7A3622C1279E15090080A99C /* WorkTableLighting.swift in Sources */,
-				7A2B4EF927AB425500305A6E /* Control.swift in Sources */,
-				7A3622B1279DF5790080A99C /* MotionSensor.swift in Sources */,
-				7A3622A9279DF5790080A99C /* Parameters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,10 +335,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7A3622B5279DF5A50080A99C /* CocoaMQTT */ = {
+		7AA1CD5827B2A7D20032410E /* HomeAutomations */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7AA30B262754D0DD00E8E538 /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
-			productName = CocoaMQTT;
+			productName = HomeAutomations;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -9,8 +9,17 @@ import Foundation
 import Combine
 import Presentation
 
+enum AutomaticMode {
+    case morning
+    case day
+    case evening
+    case night
+}
+
 class LightningRule: RestorableDisableContainer {
     internal var subscriptions = [AnyCancellable]()
+    
+    @Published var automaticMode = AutomaticMode.day
     
     let restorableDisablingDevices: [RestorableDisabling]
 

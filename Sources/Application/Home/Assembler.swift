@@ -43,6 +43,7 @@ public final class Assembler {
         let bathLightingRule =
         BathroomLighting(leftButton: PushButton(publisher: provider.input1.$bathroom1),
                          rightButton: PushButton(publisher: provider.input1.$bathroom2),
+                         sensor: provider.sensorBathroom.motionSensor,
                          dimmer: provider.dimmer2.$channel2,
                          led: provider.led.$channel3)
         

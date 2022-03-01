@@ -22,6 +22,8 @@ class HomeControl {
             self?.switchLightsEverywhere()
         }
         .store(in: &subscriptions)
+        
+        
     }
     
     func switchLightsEverywhere() {

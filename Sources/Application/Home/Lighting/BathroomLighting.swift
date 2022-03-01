@@ -14,21 +14,38 @@ class BathroomLighting: LightningRule {
     
     private let leftButton: PushButton
     private let rightButton: PushButton
+    private let sensor: MSWMotionSensor
     
     internal init(leftButton: PushButton,
                   rightButton: PushButton,
+                  sensor: MSWMotionSensor,
                   dimmer: Field<Int>,
                   led: Field<Int>) {
         
         self.leftButton = leftButton
         self.rightButton = rightButton
+        self.sensor = sensor
+        
+        sensor.noMotionNotifyPeriod = 6 * 10
+        
         super.init(restorableDisablingDevices: [dimmer, led])
+    
+        sensor
+            .$state
+            .map { detectionState -> (LightingState) in
+                switch detectionState {
+                case .motionDetected: return .auto
+                case .motionNotDetected: return .lounge
+                }
+            }
+            .assignWeak(to: \.state, on: self)
+            .store(in: &subscriptions)
         
         [leftButton, rightButton].forEach { button in
             button.detectedActions = [.longPress, .doubleClick, .singleClick]
         }
         
-        leftButton
+        let onLeftButton = leftButton
             .onActionDetectedPublisher()
             .compactMap { (event) -> (LightingState?) in
                 switch event {
@@ -37,11 +54,12 @@ class BathroomLighting: LightningRule {
                 case .longPress: return .off
                 }
             }
+
+        onLeftButton
             .assignWeak(to: \.state, on: self)
             .store(in: &subscriptions)
         
-        
-        rightButton
+        let onRightButton = rightButton
             .onActionDetectedPublisher()
             .compactMap { (event) -> (LightingState?) in
                 switch event {
@@ -50,7 +68,16 @@ class BathroomLighting: LightningRule {
                 default: return nil
                 }
             }
+        
+        onRightButton
             .assignWeak(to: \.state, on: self)
+            .store(in: &subscriptions)
+        
+        onLeftButton
+            .merge(with: onRightButton)
+            .sink { [weak self] _ in
+                self?.sensor.disableTemporarily()
+            }
             .store(in: &subscriptions)
         
         $state

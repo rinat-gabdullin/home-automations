@@ -26,7 +26,7 @@ class BathroomLighting: LightningRule {
         self.rightButton = rightButton
         self.sensor = sensor
         
-        sensor.noMotionNotifyPeriod = 6 * 10
+        sensor.noMotionNotifyPeriod = 6 * 10 * 10
         
         super.init(restorableDisablingDevices: [dimmer, led])
     
@@ -86,7 +86,7 @@ class BathroomLighting: LightningRule {
                 case .off:
                     return 0
                 case .auto, .lounge:
-                    return 50
+                    return 100
                 case .bright:
                     return 100
                 }
@@ -100,7 +100,7 @@ class BathroomLighting: LightningRule {
                 case .off, .lounge:
                     return 0
                 case .auto:
-                    return 50
+                    return 80
                 case .bright:
                     return 100
                 }

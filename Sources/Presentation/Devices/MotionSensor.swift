@@ -41,7 +41,7 @@ public class MotionSensor<T: Payload>: Device<T>, MotionDetection {
     
     @Published private(set) public var state = DetectionState.motionNotDetected
         
-    var sensorDisableDuration: TimeInterval = 60*30
+    var sensorDisableDuration: TimeInterval = 60*40
     
     public var noMotionNotifyPeriod: TimeInterval = 3*60
     

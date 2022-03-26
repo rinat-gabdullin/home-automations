@@ -6,23 +6,16 @@
 //
 
 import Foundation
-import Presentation
+import DeviceAreas
 
-class CloakroomLighting: LightningRule {
+class CloakroomLighting: LightningRule<EntrancyDevices> {
+  
+    override func setup() {
         
-    let lightSwitch: Field<Bool>
-    let sensor: ZigbeeSensor
-    
-    internal init(lightSwitch: Field<Bool>, sensor: ZigbeeSensor) {
-        self.lightSwitch = lightSwitch
-        self.sensor = sensor
-        
-        super.init(restorableDisablingDevices: [lightSwitch])
-        
-        sensor
+        devices.sensor
             .$state
             .map { $0 == .motionDetected }
-            .assignWeak(to: \.lightSwitch.wrappedValue, on: self)
+            .assignWeak(to: \.lightSwitch, on: devices)
             .store(in: &subscriptions)
         
     }

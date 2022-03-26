@@ -9,10 +9,6 @@ import Foundation
 import Combine
 import Session
 
-public enum TopicPublisherError: Swift.Error {
-    case invalidType
-}
-
 extension TopicPublisher {
     
     final class TopicSubscription<T: Subscriber>: Combine.Subscription, TopicReaderOutput
@@ -41,7 +37,7 @@ extension TopicPublisher {
             }
             
             guard let value = P(payloadString: value) else {
-                subscriber.receive(completion: .failure(.invalidType))
+                assertionFailure()
                 return
             }
             

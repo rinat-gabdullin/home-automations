@@ -9,7 +9,7 @@ import Foundation
 import Session
 import Combine
 
-public final class PresentationProvider {
+public final class DeviceProvider {
     
     /// WBIO-DO-HS-8
     /// - Contact 1:
@@ -87,13 +87,13 @@ public final class PresentationProvider {
     
     /// Relay
     /// - MQTT identifier: relay-small-1
-    /// - Modbus identifier: 1
+    /// - Modbus identifier: 12
     /// - Location: small box
-    /// - Contact 1:
-    /// - Contact 2:
-    /// - Contact 3:
+    /// - Contact 1: 
+    /// - Contact 2: Fan
+    /// - Contact 3: Towel Dryer
     /// - Contact 4: Balcony light
-    /// - Contact 5:
+    /// - Contact 5: ?
     /// - Contact 6: Bedroom right lamp
     public let relaySmall1: WirenboardRelay
     
@@ -102,34 +102,34 @@ public final class PresentationProvider {
     /// - Modbus identifier: 230
     /// - Location: small box
     /// - Contact 1: Floor heater 1
-    /// - Contact 2: Water control 1 (not sure!)
-    /// - Contact 3: Water control 2 (not sure!)
+    /// - Contact 2: Water control 1
+    /// - Contact 3: Water control 2
     /// - Contact 4: Floor heater 2
     /// - Contact 5: Entrancy mirror LED
     /// - Contact 6:
     public let relaySmall2: WirenboardRelay
     
+    /// Input module
+    /// - Input 1:
+    /// - Input 2:
+    /// - Input 3:
+    /// - Input 4:
+    /// - Input 5:
+    /// - Input 6:
+    /// - Input 7:
+    /// - Input 8:
+    /// - Input 9:
+    /// - Input 10:
+    /// - Input 11:
+    /// - Input 12:
+    /// - Input 13:
+    /// - Input 14:
     public let input1: WirenboardInput
     
-    public let hueSwitchAction: AnyPublisher<HueSwitchAction, Never>
-    
-    public let bedroomBedLight1: Field<ZigbeeLightPayload>
-    public let bedroomBedLight2: Field<ZigbeeLightPayload>
-    
-    public let mainTrackLight1: Field<ZigbeeLightPayload>
-    public let mainTrackLight2: Field<ZigbeeLightPayload>
-    public let mainTrackLight3: Field<ZigbeeLightPayload>
-    public let mainTrackLight4: Field<ZigbeeLightPayload>
-    public let mainTrackLight5: Field<ZigbeeLightPayload>
-    
-    public let mainLamp: Field<ZigbeeLightPayload>
-    
-    public let countertopSensor: ZigbeeSensor
-    public let cloakroomSensor: ZigbeeSensor
-    public let kitchenTableSensor: ZigbeeSensor
+    public let session: MQTTSession
     
     public init(serverUrl: URL) throws {
-        let session = try MQTTSession(serverUrl: serverUrl)
+        session = try MQTTSession(serverUrl: serverUrl)
 
         wirenboardHS = WirenboardHS(deviceName: "wb-gpio", session: session)
         sensorBathroom = WirenboardMSW(deviceName: "sensor-bathroom", session: session)
@@ -141,26 +141,7 @@ public final class PresentationProvider {
         relayBig2 = WirenboardRelay(deviceName: "relay-big-2", session: session)
         relaySmall1 = WirenboardRelay(deviceName: "relay-small-1", session: session)
         relaySmall2 = WirenboardRelay(deviceName: "relay-small-2", session: session)
-        input1 = WirenboardInput(deviceName: "wb-gpio", session: session)
-        
-        hueSwitchAction = TopicPublisher(topic: "/zigbee/switches/action", session: session)
-            .catch { _ in Empty(completeImmediately: false) }
-            .removeDuplicates()
-            .eraseToAnyPublisher()
-        
-        bedroomBedLight1 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/sleeping/bra").projectedValue
-        bedroomBedLight2 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/sleeping/lamp").projectedValue
-
-        mainTrackLight1 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/main/track-1").projectedValue
-        mainTrackLight2 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/main/track-2").projectedValue
-        mainTrackLight3 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/main/track-3").projectedValue
-        mainTrackLight4 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/main/track-4").projectedValue
-        mainTrackLight5 = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/main/track-5").projectedValue
-
-        mainLamp = WritableBinding(session: session, zigbeeDeviceTopicPath: "/zigbee/main/shelf").projectedValue
-
-        countertopSensor = ZigbeeSensor(publisher: session.subscribe(topicPath: "/zigbee/kitchen/countertop-sensor"))
-        kitchenTableSensor = ZigbeeSensor(publisher: session.subscribe(topicPath: "/zigbee/kitchen/table-sensor"))
-        cloakroomSensor = ZigbeeSensor(publisher: session.subscribe(topicPath: "/zigbee/enter/cloakroom-sensor"))
+        input1 = WirenboardInput(deviceName: "wb-gpio", session: session)                
     }
+    
 }

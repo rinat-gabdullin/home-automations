@@ -12,12 +12,12 @@ import Session
 public final class TopicPublisher<P: Payload>: Publisher {
     
     public typealias Output = P
-    public typealias Failure = TopicPublisherError
+    public typealias Failure = Never
     
     let topic: TopicPath
     private let session: MQTTSession
     
-    internal init(topic: TopicPath, session: MQTTSession) {
+    public init(topic: TopicPath, session: MQTTSession) {
         self.topic = topic
         self.session = session
     }

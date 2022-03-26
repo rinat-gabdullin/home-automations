@@ -16,14 +16,24 @@ enum AutomaticMode {
     case night
 }
 
-class LightningRule: RestorableDisableContainer {
+class Rule<Devices> {
+    
     internal var subscriptions = [AnyCancellable]()
-    
-    @Published var automaticMode = AutomaticMode.day
-    
-    let restorableDisablingDevices: [RestorableDisabling]
+    unowned var area: Area<Devices>
+    let devices: Devices
 
-    init(restorableDisablingDevices: [RestorableDisabling]) {
-        self.restorableDisablingDevices = restorableDisablingDevices
+    internal init(area: Area<Devices>) {
+        self.area = area
+        self.devices = area.devices
+        
+        setup()
     }
+    
+    open func setup() {
+        
+    }
+}
+
+class LightningRule<Devices>: Rule<Devices> {
+    
 }

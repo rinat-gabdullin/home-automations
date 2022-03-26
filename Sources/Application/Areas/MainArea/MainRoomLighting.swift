@@ -5,36 +5,21 @@
 //  Created by Rinat G. on 22.01.2022.
 //
 
-import Foundation
-import Presentation
+import Combine
+import DeviceAreas
 
-class MainRoomLighting: LightningRule {
+class MainRoomLighting: LightningRule<MainAreaDevices> {
     
     @Published private var state = LightingState.off
     
-    private let leftButton: PushButton
-    private let rightButton: PushButton
+    lazy var leftButton = devices.leftButton
+    lazy var rightButton = devices.rightButton
     
-    init(dimmer: Field<Int>,
-         trackLight1: Field<ZigbeeLightPayload>,
-         trackLight2: Field<ZigbeeLightPayload>,
-         trackLight3: Field<ZigbeeLightPayload>,
-         trackLight4: Field<ZigbeeLightPayload>,
-         trackLight5: Field<ZigbeeLightPayload>,
-         lamp: Field<ZigbeeLightPayload>,
-
-         leftButton: PushButton,
-         rightButton: PushButton) {
-        
-        // To retain buttons:
-        self.leftButton = leftButton
-        self.rightButton = rightButton
+    override func setup() {
         
         [leftButton, rightButton].forEach { button in
             button.detectedActions = [.longPress, .doubleClick, .singleClick]
         }
-        
-        super.init(restorableDisablingDevices: [dimmer, trackLight1, trackLight2, trackLight3, trackLight4, trackLight5, lamp])
         
         leftButton
             .onActionDetectedPublisher()
@@ -72,7 +57,7 @@ class MainRoomLighting: LightningRule {
                     return 100
                 }
             }
-            .write(to: dimmer)
+            .assignWeak(to: \.ceiling, on: devices)
             .store(in: &subscriptions)
 
         $state
@@ -88,16 +73,36 @@ class MainRoomLighting: LightningRule {
                     return 255
                 }
             }
-            .sink(receiveValue: { [weak trackLight1, weak trackLight2, weak trackLight3, weak trackLight4, weak trackLight5, weak lamp] output in
-                trackLight1?.wrappedValue.brightness = output
-                trackLight2?.wrappedValue.brightness = output
-                trackLight3?.wrappedValue.brightness = output
-                trackLight4?.wrappedValue.brightness = output
-                trackLight5?.wrappedValue.brightness = output
-                lamp?.wrappedValue.brightness = output
+            .sink(receiveValue: { [weak devices] output in
+                devices?.trackLight1.brightness = output
+                devices?.trackLight2.brightness = output
+                devices?.trackLight3.brightness = output
+                devices?.trackLight4.brightness = output
+                devices?.trackLight5.brightness = output
+                devices?.lamp.brightness = output
                 
             })
             .store(in: &subscriptions)
 
+        $state
+            .filter { $0 == .off }
+            .sink { [weak devices] _ in
+                devices?.led = 0
+                devices?.kitchenTable = 0
+            }
+            .store(in: &subscriptions)
+        
+        $state
+            .compactMap {
+                switch $0 {
+                case .off: return false
+                case .bright: return true
+                default: return nil
+                }
+            }
+            .sink { [weak devices] state in
+                devices?.workingTable = state
+            }
+            .store(in: &subscriptions)
     }
 }

@@ -6,21 +6,14 @@
 //
 
 import Foundation
-import Presentation
+import DeviceAreas
 
-class KitchenTableLighting: LightningRule {
+class KitchenTableLighting: LightningRule<MainAreaDevices> {
     
-    @Field private var light: Int
+    lazy var sensor = devices.tableSensor
+    lazy var pushButton = devices.kitchenButton2
     
-    let sensor: ZigbeeSensor
-    let pushButton: PushButton
-
-    internal init(light: Field<Int>, sensor: ZigbeeSensor, pushButton: PushButton) {
-        self._light = light
-        self.sensor = sensor
-        self.pushButton = pushButton
-        
-        super.init(restorableDisablingDevices: [light])
+    override func setup() {
         
         sensor.noMotionNotifyPeriod = 60 * 8
         pushButton.detectedActions = [.singleClick, .longPress]
@@ -28,7 +21,7 @@ class KitchenTableLighting: LightningRule {
         sensor
             .$state
             .map { $0 == .motionDetected ? 100 : 0 }
-            .write(to: light)
+            .assignWeak(to: \.kitchenTable, on: devices)
             .store(in: &subscriptions)
         
         pushButton
@@ -53,7 +46,7 @@ class KitchenTableLighting: LightningRule {
 
     func toggle() {
         sensor.disableTemporarily()
-        light = light > 0 ? 0 : 100
+        devices.kitchenTable = devices.kitchenTable > 0 ? 0 : 100
     }
     
     var timer: Timer?
@@ -62,19 +55,19 @@ class KitchenTableLighting: LightningRule {
         sensor.disableTemporarily()
         timer?.invalidate()
         
-        light = 100
+        devices.kitchenTable = 100
         
-        timer = .scheduledTimer(withTimeInterval: 0.75, repeats: true, block: { [weak self] timer in
-            guard let self = self else {
+        timer = .scheduledTimer(withTimeInterval: 0.75, repeats: true, block: { [weak devices] timer in
+            guard let devices = devices else {
                 return
             }
             
-            let newValue = self.light * 2/3
+            let newValue = devices.kitchenTable * 2/3
             if newValue < 0 {
-                self.light = 1
+                devices.kitchenTable = 1
                 timer.invalidate()
             } else {
-                self.light = newValue
+                devices.kitchenTable = newValue
             }
             
         })

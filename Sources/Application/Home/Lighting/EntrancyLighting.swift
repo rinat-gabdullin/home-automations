@@ -6,41 +6,29 @@
 //
 
 import Combine
-import Presentation
+import DeviceAreas
 import CodeSupport
 
-class EntrancyLighting: LightningRule {
+class EntrancyLighting: LightningRule<EntrancyDevices> {
     
     @Published private var state = LightingState.off 
     
-    private let leftButton: PushButton
-    private let rightButton: PushButton
-    
-    init(dimmer: Field<Int>,
-         led: Field<Int>,
-         mirrorSwitch: Field<Bool>,
-         leftButton: PushButton,
-         rightButton: PushButton) {
+    override func setup() {
         
-        // To retain buttons:
-        self.leftButton = leftButton
-        self.rightButton = rightButton
+        let leftButton = devices.leftButton
+        let rightButton = devices.rightButton
         
         [leftButton, rightButton].forEach { button in
             button.detectedActions = [.longPress, .doubleClick, .singleClick]
         }
         
-        super.init(restorableDisablingDevices: [dimmer, led, mirrorSwitch])
-        
-        // Light control buttons handling:
-                
         leftButton
             .onActionDetectedPublisher()
             .compactMap { (event) -> (LightingState?) in
                 switch event {
                 case .singleClick: return .lounge
-                case .doubleClick: return .off
-                case .longPress: return nil
+                case .longPress: return .off
+                case .doubleClick: return nil
                 }
             }
             .assignWeak(to: \.state, on: self)
@@ -72,7 +60,7 @@ class EntrancyLighting: LightningRule {
                     return 100
                 }
             }
-            .write(to: led)
+            .assign(to: \.led, on: devices)
             .store(in: &subscriptions)
 
         $state
@@ -86,7 +74,7 @@ class EntrancyLighting: LightningRule {
                     return 100
                 }
             }
-            .write(to: dimmer)
+            .assign(to: \.dimmer, on: devices)
             .store(in: &subscriptions)
 
         // State handling for mirror backlight:
@@ -98,16 +86,9 @@ class EntrancyLighting: LightningRule {
                 default: return true
                 }
             }
-            .write(to: mirrorSwitch)
+            .assign(to: \.mirrorSwitch, on: devices)
             .store(in: &subscriptions)
         
     }
     
-    func onTurnOffEverything() -> AnyPublisher<Void, Never> {
-        leftButton
-            .onActionDetectedPublisher()
-            .filter { $0 == .longPress }
-            .map { _ in Void() }
-            .eraseToAnyPublisher()
-    }
 }

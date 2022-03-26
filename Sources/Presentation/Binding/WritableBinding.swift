@@ -54,8 +54,6 @@ public class WritableBinding<T: Payload>: TopicBinding {
         self.writer = session.makeWriter(for: zigbeeDeviceTopicPath.set)
         
         TopicPublisher<T>(topic: zigbeeDeviceTopicPath, session: session)
-            .catch { _ in Just(T.initialValue) }
-            .removeDuplicates()
             .assignWeak(to: \.internalValue, on: self)
             .store(in: &subscriptions)
     }

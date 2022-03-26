@@ -8,17 +8,18 @@
 import Foundation
 
 public final class WirenboardInput: WirenboardDevice {
-    @Binding("enter-1") public var enter1: Bool
-    @Binding("enter-2") public var enter2: Bool
-    @Binding("hall-1") public var hall1: Bool
-    @Binding("hall-2") public var hall2: Bool
-    @Binding("hall-down") public var hallDown: Bool
-    @Binding("hall-up") public var hallUp: Bool
-    @Binding("hall-center") public var hallCenter: Bool
-    @Binding("table-1") public var table1: Bool
-    @Binding("table-2") public var table2: Bool
-    @Binding("sleeping-1") public var sleeping1: Bool
-    @Binding("sleeping-2") public var sleeping2: Bool
-    @Binding("bathroom-1") public var bathroom1: Bool
-    @Binding("bathroom-2") public var bathroom2: Bool
+    @Binding("EXT2_IN1") public var hallDown: Bool
+    @Binding("EXT2_IN2") public var bedLeft: Bool
+    @Binding("EXT2_IN3") public var hallCenter: Bool
+    @Binding("EXT2_IN4") public var sleeping1: Bool
+    @Binding("EXT2_IN5") public var bedRight: Bool
+    @Binding("EXT2_IN6") public var sleeping2: Bool
+    @Binding("EXT2_IN7") public var bathroom1: Bool
+    @Binding("EXT2_IN8") public var bathroom2: Bool
+    @Binding("EXT2_IN9") public var table2: Bool
+    @Binding("EXT2_IN10") public var table1: Bool
+    @Binding("EXT2_IN11") public var hall2: Bool
+    @Binding("EXT2_IN12") public var hall1: Bool
+    @Binding("EXT2_IN13") public var enter2: Bool
+    @Binding("EXT2_IN14") public var enter1: Bool
 }

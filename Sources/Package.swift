@@ -15,12 +15,17 @@ let package = Package(
         .package(url: "https://github.com/emqx/CocoaMQTT", from: "2.0.2"),
     ],
     targets: [
-
+        
         /// In *Application* devices interact with each other (e.g. lights with switches) by scenarios
         .target(
             name: "Application",
-            dependencies: [.targetItem(name: "Presentation", condition: .none), .codeSupport],
+            dependencies: [.targetItem(name: "DeviceAreas", condition: .none), .codeSupport],
             path: "Application"),
+        
+        .target(
+            name: "DeviceAreas",
+            dependencies: [.targetItem(name: "Presentation", condition: .none), .codeSupport],
+            path: "DeviceAreas"),
         
         /// *Presentation* layer describes devices exposed over MQTT
         .target(
@@ -36,16 +41,16 @@ let package = Package(
         
         /// *Connection* is low-level layer that estabilishes connection to MQTT-broker using CocoaMQTT library
         /// CocoaMQTT will be replaced with some cross-platform implemetation in order to launch this daemon in linux
-        .target(
-            name: "Connection",
-            dependencies: [.byName(name: "CocoaMQTT"), .codeSupport],
-            path: "Connection"),
-    
-        .target(
-            name: "CodeSupport",
-            path: "Code Support"),
+            .target(
+                name: "Connection",
+                dependencies: [.byName(name: "CocoaMQTT"), .codeSupport],
+                path: "Connection"),
         
-
+            .target(
+                name: "CodeSupport",
+                path: "Code Support"),
+        
+        
     ]
 )
 

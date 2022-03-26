@@ -6,29 +6,40 @@
 //
 
 import Foundation
-import Presentation
+import DeviceAreas
+import Combine
 
-class BedroomLighting: LightningRule {
+class BedroomLighting: LightningRule<BedroomDevices> {
     
     @Published private var state = LightingState.off
     
-    private let leftEnterButton: PushButton
-    private let rightEnterButton: PushButton
-    
-    internal init(leftEnterButton: PushButton,
-                  rightEnterButton: PushButton,
-                  dimmer: Field<Int>,
-                  led: Field<Int>,
-                  lampLeft: Field<ZigbeeLightPayload>,
-                  lampRight: Field<ZigbeeLightPayload>) {
+    private var producer = PassthroughSubject<Void, Never>()
+
+    public var onHomeLightsOffSignal: AnyPublisher<Void, Never> {
+        producer.eraseToAnyPublisher()
+    }
+
+    override func setup() {
         
-        self.leftEnterButton = leftEnterButton
-        self.rightEnterButton = rightEnterButton
-        super.init(restorableDisablingDevices: [dimmer, led, lampRight, lampLeft])
+        let leftEnterButton = devices.leftEnterButton
+        let rightEnterButton = devices.rightEnterButton
         
-        [leftEnterButton, rightEnterButton].forEach { button in
+        [leftEnterButton, rightEnterButton, devices.bedRightButton, devices.bedLeftButton].forEach { button in
             button.detectedActions = [.longPress, .doubleClick, .singleClick]
         }
+        
+        devices
+            .bedLeftButton
+            .onActionDetectedPublisher()
+            .merge(with: devices.bedRightButton.onActionDetectedPublisher())
+            .sink { action in
+                switch action {
+                case .singleClick: self.toogle(to: .lounge)
+                case .doubleClick: return self.producer.send()
+                case .longPress: self.toogle(to: .auto)
+                }
+            }
+            .store(in: &subscriptions)
 
         leftEnterButton
             .onActionDetectedPublisher()
@@ -66,7 +77,7 @@ class BedroomLighting: LightningRule {
                     return 100
                 }
             }
-            .write(to: led)
+            .assign(to: \.led, on: devices)
             .store(in: &subscriptions)
         
         $state
@@ -80,7 +91,7 @@ class BedroomLighting: LightningRule {
                     return 100
                 }
             }
-            .write(to: dimmer)
+            .assign(to: \.dimmer, on: devices)
             .store(in: &subscriptions)
                 
         $state
@@ -96,11 +107,19 @@ class BedroomLighting: LightningRule {
                     return 255
                 }
             }
-            .sink(receiveValue: { [weak lampRight, weak lampLeft] output in
-                lampRight?.wrappedValue.brightness = output
-                lampLeft?.wrappedValue.brightness = output
+            .sink(receiveValue: { [weak devices] output in
+                devices?.lampRight.brightness = output
+                devices?.lampLeft.brightness = output
             })
             .store(in: &subscriptions)
+    }
+    
+    private func toogle(to state: LightingState) {
+        if self.state == state {
+            self.state = .off
+        } else {
+            self.state = state
+        }
     }
 
 }

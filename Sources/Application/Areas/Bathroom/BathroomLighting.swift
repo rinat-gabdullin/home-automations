@@ -6,30 +6,20 @@
 //
 
 import Foundation
-import Presentation
+import DeviceAreas
 
-class BathroomLighting: LightningRule {
+class BathroomLighting: LightningRule<BathroomDevices> {
         
     @Published private var state = LightingState.off
     
-    private let leftButton: PushButton
-    private let rightButton: PushButton
-    private let sensor: MSWMotionSensor
-    
-    internal init(leftButton: PushButton,
-                  rightButton: PushButton,
-                  sensor: MSWMotionSensor,
-                  dimmer: Field<Int>,
-                  led: Field<Int>) {
+    override func setup() {
         
-        self.leftButton = leftButton
-        self.rightButton = rightButton
-        self.sensor = sensor
+        let sensor = devices.sensor
+        let leftButton = devices.leftButton
+        let rightButton = devices.rightButton
         
         sensor.noMotionNotifyPeriod = 6 * 10 * 10
         
-        super.init(restorableDisablingDevices: [dimmer, led])
-    
         sensor
             .$state
             .map { detectionState -> (LightingState) in
@@ -75,8 +65,8 @@ class BathroomLighting: LightningRule {
         
         onLeftButton
             .merge(with: onRightButton)
-            .sink { [weak self] _ in
-                self?.sensor.disableTemporarily()
+            .sink { _ in
+                sensor.disableTemporarily()
             }
             .store(in: &subscriptions)
         
@@ -85,13 +75,15 @@ class BathroomLighting: LightningRule {
                 switch state {
                 case .off:
                     return 0
-                case .auto, .lounge:
+                case .lounge:
+                    return 30
+                case .auto:
                     return 100
                 case .bright:
                     return 100
                 }
             }
-            .write(to: led)
+            .assignWeak(to: \.led, on: devices)
             .store(in: &subscriptions)
         
         $state
@@ -105,7 +97,7 @@ class BathroomLighting: LightningRule {
                     return 100
                 }
             }
-            .write(to: dimmer)
+            .assignWeak(to: \.dimmer, on: devices)
             .store(in: &subscriptions)
         
     }

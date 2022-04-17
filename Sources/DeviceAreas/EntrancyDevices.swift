@@ -16,14 +16,16 @@ final public class EntrancyDevices: RestorableDisableContainer {
     public var rightButton: PushButton
     @Field public var lightSwitch: Bool
     public var sensor: ZigbeeSensor
-    
+    public var doorbell: PushButton
+
     init(dimmer: Field<Int>,
          led: Field<Int>,
          mirrorSwitch: Field<Bool>,
          leftButton: PushButton,
          rightButton: PushButton,
          lightSwitch: Field<Bool>,
-         sensor: ZigbeeSensor) {
+         sensor: ZigbeeSensor,
+         doorbell: PushButton) {
         
         self._dimmer = dimmer
         self._led = led
@@ -32,6 +34,7 @@ final public class EntrancyDevices: RestorableDisableContainer {
         self.rightButton = rightButton
         self._lightSwitch = lightSwitch
         self.sensor  = sensor
+        self.doorbell = doorbell
     }
     
     public var restorableDisablingDevices: [RestorableDisabling] {

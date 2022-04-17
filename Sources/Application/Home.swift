@@ -27,7 +27,7 @@ class Home {
     let bathroomArea: Area<BathroomDevices>
     
     private var subscriptions = [AnyCancellable]()
-    var restorationTokens = [RestorationToken]()
+    @Published var restorationTokens = [RestorationToken]()
     
     func setup() {
         mainArea.add(rule: CountertopLighting(area: mainArea))
@@ -38,6 +38,8 @@ class Home {
         entrancyArea.add(rule: CloakroomLighting(area: entrancyArea))
         bathroomArea.add(rule: BathroomLighting(area: bathroomArea))
         bathroomArea.add(rule: BathroomAccessoires(area: bathroomArea))
+        entrancyArea.add(rule: Doorbell(area: entrancyArea))
+        sleepingArea.add(rule: BedroomCurtains(area: sleepingArea))
         
         let rule = BedroomLighting(area: sleepingArea)
         sleepingArea.add(rule: rule)
@@ -49,6 +51,14 @@ class Home {
             .merge(with: rule.onHomeLightsOffSignal)
             .sink { [weak self] _ in
                 self?.switchLightsEverywhere()
+            }
+            .store(in: &subscriptions)
+        
+        $restorationTokens
+            .filter(\.isEmpty.inversed)
+            .debounce(for: .seconds(5 * 60), scheduler: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.restorationTokens = []
             }
             .store(in: &subscriptions)
     }

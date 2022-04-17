@@ -8,7 +8,7 @@
 import Foundation
 
 public final class WirenboardInput: WirenboardDevice {
-    @Binding("EXT2_IN1") public var hallDown: Bool
+    @Binding("EXT2_IN1") public var doorbell: Bool
     @Binding("EXT2_IN2") public var bedLeft: Bool
     @Binding("EXT2_IN3") public var hallCenter: Bool
     @Binding("EXT2_IN4") public var sleeping1: Bool

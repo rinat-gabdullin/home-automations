@@ -61,12 +61,19 @@ class MainRoomLighting: LightningRule<MainAreaDevices> {
             .store(in: &subscriptions)
 
         $state
+            .map { state -> Bool in
+                state != .off
+            }
+            .assignWeak(to: \.shelfLight, on: devices)
+            .store(in: &subscriptions)
+
+        $state
             .map { state -> Int in
                 switch state {
                 case .off:
                     return 0
                 case .lounge:
-                    return 1
+                    return 10
                 case .auto:
                     return 100
                 case .bright:

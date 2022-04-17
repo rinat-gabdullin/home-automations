@@ -79,10 +79,16 @@ public final class DeviceProvider {
     /// - Location: main box
     /// - Contact 1:
     /// - Contact 2:
-    /// - Contact 3:
+    /// - Contact 3: Main room shelf
     /// - Contact 4:
     /// - Contact 5:
     /// - Contact 6:
+    /// - Input 1:
+    /// - Input 2:
+    /// - Input 3:
+    /// - Input 4: Bedroom curtain Right
+    /// - Input 5: Bedroom curtain Left
+    /// - Input 6:
     public let relayBig2: WirenboardRelay
     
     /// Relay

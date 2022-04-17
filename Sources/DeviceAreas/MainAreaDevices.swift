@@ -10,7 +10,7 @@ import Combine
 
 final public class MainAreaDevices: RestorableDisableContainer {
     
-    internal init(leftButton: PushButton, rightButton: PushButton, centerButton: PushButton, kitchenTable: Field<Int>, tableSensor: ZigbeeSensor, kitchenButton1: PushButton, kitchenButton2: PushButton, led: Field<Int>, trackKitchen: Field<Bool>, cookerHood: Field<Bool>, countertopSensor: ZigbeeSensor, ceiling: Field<Int>, workingTable: Field<Bool>, lamp: Field<ZigbeeLightPayload>, hueSwitchAction: AnyPublisher<HueSwitchAction, Never>, trackLight1: Field<ZigbeeLightPayload>, trackLight2: Field<ZigbeeLightPayload>, trackLight3: Field<ZigbeeLightPayload>, trackLight4: Field<ZigbeeLightPayload>, trackLight5: Field<ZigbeeLightPayload>) {
+    internal init(leftButton: PushButton, rightButton: PushButton, centerButton: PushButton, kitchenTable: Field<Int>, tableSensor: ZigbeeSensor, kitchenButton1: PushButton, kitchenButton2: PushButton, led: Field<Int>, trackKitchen: Field<Bool>, cookerHood: Field<Bool>, countertopSensor: ZigbeeSensor, ceiling: Field<Int>, workingTable: Field<Bool>, lamp: Field<ZigbeeLightPayload>, hueSwitchAction: AnyPublisher<HueSwitchAction, Never>, trackLight1: Field<ZigbeeLightPayload>, trackLight2: Field<ZigbeeLightPayload>, trackLight3: Field<ZigbeeLightPayload>, trackLight4: Field<ZigbeeLightPayload>, trackLight5: Field<ZigbeeLightPayload>, shelfLight: Field<Bool>) {
         
         self.leftButton = leftButton
         self.rightButton = rightButton
@@ -32,10 +32,13 @@ final public class MainAreaDevices: RestorableDisableContainer {
         self._trackLight3 = trackLight3
         self._trackLight4 = trackLight4
         self._trackLight5 = trackLight5
+        self._shelfLight = shelfLight
     }
        
-    // Около входа:
+    // Шкаф
+    @Field public var shelfLight: Bool
     
+    // Около входа:
     public let leftButton: PushButton
     public let rightButton: PushButton
     

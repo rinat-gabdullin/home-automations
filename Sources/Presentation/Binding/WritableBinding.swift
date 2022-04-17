@@ -49,11 +49,11 @@ public class WritableBinding<T: Payload>: TopicBinding {
         self.customPathComponent = customPathComponent
     }
     
-    public init(session: MQTTSession, zigbeeDeviceTopicPath: TopicPath) where T: Equatable {
+    public init(session: MQTTSession, topicPath: TopicPath, setter: KeyPath<TopicPath, TopicPath> = \.set) where T: Equatable {
 
-        self.writer = session.makeWriter(for: zigbeeDeviceTopicPath.set)
+        self.writer = session.makeWriter(for: topicPath[keyPath: setter])
         
-        TopicPublisher<T>(topic: zigbeeDeviceTopicPath, session: session)
+        TopicPublisher<T>(topic: topicPath, session: session)
             .assignWeak(to: \.internalValue, on: self)
             .store(in: &subscriptions)
     }

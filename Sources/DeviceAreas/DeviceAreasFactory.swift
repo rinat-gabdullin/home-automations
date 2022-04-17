@@ -17,9 +17,16 @@ final public class DeviceAreasFactory {
         self.provider = try DeviceProvider(serverUrl: serverUrl)
     }
     
-    private func field<T>(topicPath: String) -> Field<T> where T: Equatable & Payload {
+    private func zigbeeField<T>(topicPath: String) -> Field<T> where T: Equatable & Payload {
         WritableBinding(session: provider.session,
-                        zigbeeDeviceTopicPath: .init(path: topicPath)).projectedValue
+                        topicPath: .init(path: topicPath),
+                        setter: \.set).projectedValue
+    }
+    
+    private func wirenboardField<T>(topicPath: String) -> Field<T> where T: Equatable & Payload {
+        WritableBinding(session: provider.session,
+                        topicPath: .init(path: topicPath),
+                        setter: \.on).projectedValue
     }
     
     public func makeMainAreaDevices() -> MainAreaDevices {
@@ -47,13 +54,14 @@ final public class DeviceAreasFactory {
             countertopSensor: countertopSensor,
             ceiling: provider.dimmer1.$channel1,
             workingTable: provider.relayBig1.$contact3,
-            lamp: field(topicPath: "/zigbee/main/shelf"),
+            lamp: zigbeeField(topicPath: "/zigbee/main/shelf"),
             hueSwitchAction: hueSwitchAction,
-            trackLight1: field(topicPath: "/zigbee/main/track-1"),
-            trackLight2: field(topicPath: "/zigbee/main/track-2"),
-            trackLight3: field(topicPath: "/zigbee/main/track-3"),
-            trackLight4: field(topicPath: "/zigbee/main/track-4"),
-            trackLight5: field(topicPath: "/zigbee/main/track-5")
+            trackLight1: zigbeeField(topicPath: "/zigbee/main/track-1"),
+            trackLight2: zigbeeField(topicPath: "/zigbee/main/track-2"),
+            trackLight3: zigbeeField(topicPath: "/zigbee/main/track-3"),
+            trackLight4: zigbeeField(topicPath: "/zigbee/main/track-4"),
+            trackLight5: zigbeeField(topicPath: "/zigbee/main/track-5"),
+            shelfLight: provider.relayBig2.$contact3
         )
         
     }
@@ -67,7 +75,8 @@ final public class DeviceAreasFactory {
                                leftButton: PushButton(publisher: provider.input1.$enter1),
                                rightButton: PushButton(publisher: provider.input1.$enter2),
                                lightSwitch: provider.relayBig1.$contact6,
-                               sensor: cloakroomSensor)
+                               sensor: cloakroomSensor,
+                               doorbell: PushButton(publisher: provider.input1.$doorbell))
     }
     
     public func makeBedroomDevices() -> BedroomDevices {
@@ -76,10 +85,13 @@ final public class DeviceAreasFactory {
             rightEnterButton: PushButton(publisher: provider.input1.$sleeping2),
             dimmer: provider.dimmer2.$channel1,
             led: provider.led.$channel4,
-            lampLeft: field(topicPath: "/zigbee/sleeping/bra"),
-            lampRight: field(topicPath: "/zigbee/sleeping/lamp"),
+            curtain: wirenboardField(topicPath: "/devices/dooya_0x0101/controls/Position"),
+            lampLeft: zigbeeField(topicPath: "/zigbee/sleeping/bra"),
+            lampRight: zigbeeField(topicPath: "/zigbee/sleeping/lamp"),
             bedLeftButton: PushButton(publisher: provider.input1.$bedLeft),
-            bedRightButton: PushButton(publisher: provider.input1.$bedRight)
+            bedRightButton: PushButton(publisher: provider.input1.$bedRight),
+            curtainsLeft: SimpleButton(publisher: provider.relayBig2.$counter5),
+            curtainsRight: SimpleButton(publisher: provider.relayBig2.$counter4)
         )
     }
     

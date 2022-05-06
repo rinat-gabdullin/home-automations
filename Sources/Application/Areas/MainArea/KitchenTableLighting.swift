@@ -16,7 +16,7 @@ class KitchenTableLighting: LightningRule<MainAreaDevices> {
     override func setup() {
         
         sensor.noMotionNotifyPeriod = 60 * 8
-        pushButton.detectedActions = [.singleClick, .longPress]
+        pushButton.detectedActions = [.singleClick, .doubleClick, .longPress]
         
         sensor
             .$state
@@ -37,9 +37,12 @@ class KitchenTableLighting: LightningRule<MainAreaDevices> {
         
         pushButton
             .onActionDetectedPublisher()
-            .filter { $0 == .singleClick }
-            .sink { [weak self] _ in
-                self?.toggle()
+            .sink { [weak self] action in
+                switch action {
+                case .singleClick: self?.toggle()
+                case .doubleClick: self?.sensor.toogleEnabled()
+                default: break
+                }
             }
             .store(in: &subscriptions)
     }

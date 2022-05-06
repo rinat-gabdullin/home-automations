@@ -7,6 +7,7 @@
 
 import Foundation
 import DeviceAreas
+import CodeSupport
 
 class BathroomLighting: LightningRule<BathroomDevices> {
         
@@ -76,9 +77,9 @@ class BathroomLighting: LightningRule<BathroomDevices> {
                 case .off:
                     return 0
                 case .lounge:
-                    return 30
+                    return Solar().isNighttime ? 10 : 30
                 case .auto:
-                    return 100
+                    return Solar().isNighttime ? 40 : 100
                 case .bright:
                     return 100
                 }
@@ -92,13 +93,12 @@ class BathroomLighting: LightningRule<BathroomDevices> {
                 case .off, .lounge:
                     return 0
                 case .auto:
-                    return 80
+                    return Solar().isNighttime ? 0 : 100
                 case .bright:
                     return 100
                 }
             }
             .assignWeak(to: \.dimmer, on: devices)
             .store(in: &subscriptions)
-        
     }
 }

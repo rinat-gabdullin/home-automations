@@ -96,10 +96,10 @@ public final class DeviceProvider {
     /// - Modbus identifier: 12
     /// - Location: small box
     /// - Contact 1: 
-    /// - Contact 2: Fan
+    /// - Contact 2:
     /// - Contact 3: Towel Dryer
     /// - Contact 4: Balcony light
-    /// - Contact 5: ?
+    /// - Contact 5: Balcony floor heater
     /// - Contact 6: Bedroom right lamp
     public let relaySmall1: WirenboardRelay
     

@@ -40,6 +40,12 @@ final public class DeviceAreasFactory {
             .removeDuplicates()
             .eraseToAnyPublisher()
 
+        let rightRollet = DoubleRelay(isOn: wirenboardField(topicPath: "/devices/wb-gpio/controls/EXT1_ON3"),
+                                directionSwitch: wirenboardField(topicPath: "/devices/wb-gpio/controls/EXT1_DIR3"))
+        
+        let leftRollet = DoubleRelay(isOn: wirenboardField(topicPath: "/devices/wb-gpio/controls/EXT1_ON2"),
+                                directionSwitch: wirenboardField(topicPath: "/devices/wb-gpio/controls/EXT1_DIR2"))
+        
         return MainAreaDevices(
             leftButton: PushButton(publisher: provider.input1.$hall1),
             rightButton: PushButton(publisher: provider.input1.$hall2),
@@ -61,7 +67,11 @@ final public class DeviceAreasFactory {
             trackLight3: zigbeeField(topicPath: "/zigbee/main/track-3"),
             trackLight4: zigbeeField(topicPath: "/zigbee/main/track-4"),
             trackLight5: zigbeeField(topicPath: "/zigbee/main/track-5"),
-            shelfLight: provider.relayBig2.$contact3
+            shelfLight: provider.relayBig2.$contact3,
+            upButton: SimpleButton(publisher: provider.relayBig1.$counter6),
+            downButton: SimpleButton(publisher: provider.relayBig1.$counter5),
+            leftRollet: leftRollet,
+            rightRollet: rightRollet
         )
         
     }

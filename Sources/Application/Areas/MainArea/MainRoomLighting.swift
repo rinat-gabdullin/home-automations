@@ -90,7 +90,7 @@ class MainRoomLighting: LightningRule<MainAreaDevices> {
                 
             })
             .store(in: &subscriptions)
-
+        
         $state
             .filter { $0 == .off }
             .sink { [weak devices] _ in

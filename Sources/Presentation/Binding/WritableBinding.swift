@@ -50,7 +50,7 @@ public class WritableBinding<T: Payload>: TopicBinding {
     }
     
     public init(session: MQTTSession, topicPath: TopicPath, setter: KeyPath<TopicPath, TopicPath> = \.set) where T: Equatable {
-
+        
         self.writer = session.makeWriter(for: topicPath[keyPath: setter])
         
         TopicPublisher<T>(topic: topicPath, session: session)
@@ -62,10 +62,10 @@ public class WritableBinding<T: Payload>: TopicBinding {
         var topicPath = topicPath
         
         if let customPathComponent = customPathComponent {
-            topicPath = topicPath.byReplacingLastPathComponent(to: customPathComponent).on
+            topicPath = topicPath.byReplacingLastPathComponent(to: customPathComponent)
         }
         
-        writer = session.makeWriter(for: topicPath)
+        writer = session.makeWriter(for: topicPath.on)
         
         session
             .subscribe(topicPath: topicPath)

@@ -13,17 +13,24 @@ public class WirenboardDevice {
         
         let devicePath = "/devices/\(deviceName)/controls/"
         
+        var titles = [String]()
+        
         for child in Mirror(reflecting: self).children {
             guard var label = child.label, let binding = child.value as? TopicBinding else {
                 continue
             }
             if label.first == "_" {
                 label.removeFirst()
+            } else {
+                return
             }
-            
+//            print(devicePath + label)
+            titles.append(label)
             configure(topicBinding: binding)
             binding.initialize(topicPath: TopicPath(path: devicePath + label), session: session)
         }
+        
+        print(titles)
     }
     
     func configure(topicBinding: TopicBinding) {

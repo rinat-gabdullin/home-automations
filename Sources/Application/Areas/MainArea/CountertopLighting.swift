@@ -7,10 +7,13 @@
 
 import Combine
 import DeviceAreas
+import CodeSupport
 
 class CountertopLighting: LightningRule<MainAreaDevices> {
 
     override func setup() {
+       
+        devices.kitchenButton1.detectedActions = [.doubleClick, .singleClick]
         
         let signal = devices.$led
             .compactMap(Int.init)
@@ -26,14 +29,26 @@ class CountertopLighting: LightningRule<MainAreaDevices> {
         
         devices.countertopSensor
             .$state
-            .map { $0 == .motionDetected ? 100 : 0 }
+            .map { state in
+                if state == .motionDetected {
+                    if Solar().isDaytime {
+                        return 100
+                    } else {
+                        return 50
+                    }
+                }
+                return 0 }
             .assign(to: \.led, on: devices)
             .store(in: &subscriptions)
         
         devices.kitchenButton1
             .onActionDetectedPublisher()
-            .sink { [weak self] _ in
-                self?.toggle()
+            .sink { [weak self] action in
+                switch action {
+                case .singleClick: self?.toggle()
+                case .doubleClick: self?.devices.countertopSensor.toogleEnabled()
+                default: break
+                }
             }
             .store(in: &subscriptions)
     }

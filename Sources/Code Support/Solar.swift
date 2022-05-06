@@ -27,6 +27,10 @@
 import Foundation
 import CoreLocation
 
+extension CLLocationCoordinate2D {
+    public static let current = CLLocationCoordinate2D(latitude: 55.79227654777738, longitude: 49.17846543601507)
+}
+
 public struct Solar {
     
     /// The coordinate that is used for the calculation
@@ -46,12 +50,12 @@ public struct Solar {
     
     // MARK: Init
     
-    public init?(for date: Date = Date(), coordinate: CLLocationCoordinate2D) {
+    public init(for date: Date = Date(), coordinate: CLLocationCoordinate2D = .current) {
         self.date = date
         
-        guard CLLocationCoordinate2DIsValid(coordinate) else {
-            return nil
-        }
+//        guard CLLocationCoordinate2DIsValid(coordinate) else {
+//            return nil
+//        }
         
         self.coordinate = coordinate
         

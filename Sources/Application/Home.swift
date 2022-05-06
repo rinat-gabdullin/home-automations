@@ -30,6 +30,7 @@ class Home {
     @Published var restorationTokens = [RestorationToken]()
     
     func setup() {
+        mainArea.add(rule: MainRoomCurtains(area: mainArea))
         mainArea.add(rule: CountertopLighting(area: mainArea))
         mainArea.add(rule: KitchenTableLighting(area: mainArea))
         mainArea.add(rule: MainRoomLighting(area: mainArea))

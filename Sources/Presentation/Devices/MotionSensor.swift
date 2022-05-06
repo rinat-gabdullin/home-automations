@@ -45,7 +45,7 @@ public class MotionSensor<T: Payload>: Device<T>, MotionDetection {
     
     public var noMotionNotifyPeriod: TimeInterval = 3*60
     
-    private var enabled = true
+    public private(set) var enabled = true
 
     weak private var sensorDisableTimer: Timer?
     
@@ -77,21 +77,38 @@ public class MotionSensor<T: Payload>: Device<T>, MotionDetection {
     }
     
     public func disableTemporarily() {
+        disableTemporarily(for: nil)
+    }
+        
+    public func disableTemporarily(for time: TimeInterval? = nil) {
         enabled = false
         sensorDisableTimer?.invalidate()
-        sensorDisableTimer = Timer.scheduledTimer(withTimeInterval: sensorDisableDuration,
+        sensorDisableTimer = Timer.scheduledTimer(withTimeInterval: time ?? sensorDisableDuration,
                                                   repeats: false) { [weak self] _ in
             self?.disableTemporarilyTimerDidFire()
         }
     }
     
     private func disableTemporarilyTimerDidFire() {
+        enable()
+    }
+    
+    private func enable() {
         enabled = true
+        sensorDisableTimer?.invalidate()
         
         if motionDetected {
             state = .motionDetected
         } else {
             state = .motionNotDetected
+        }
+    }
+    
+    public func toogleEnabled() {
+        if enabled {
+            disableTemporarily(for: 60*60*5) // 5 hours
+        } else {
+            enable()
         }
     }
     

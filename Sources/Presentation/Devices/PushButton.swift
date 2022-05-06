@@ -26,7 +26,7 @@ public final class PushButton: Device<Bool> {
 
     private var lastClick = Date.distantPast
     
-    private var longPressDuration: TimeInterval = 0.5
+    private var longPressDuration: TimeInterval = 0.3
     private var doubleClickDuration: TimeInterval = 0.25
     
     /// Useful in two cases:

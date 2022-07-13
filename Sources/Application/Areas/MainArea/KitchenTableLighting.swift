@@ -15,12 +15,21 @@ class KitchenTableLighting: LightningRule<MainAreaDevices> {
     
     override func setup() {
         
-        sensor.noMotionNotifyPeriod = 60 * 8
+        sensor.configuration.noMotionNotifyPeriod = 60 * 8
         pushButton.detectedActions = [.singleClick, .doubleClick, .longPress]
         
         sensor
             .$state
-            .map { $0 == .motionDetected ? 100 : 0 }
+            .map {
+                switch $0 {
+                case .motionNotDetectedWarning:
+                    return 50
+                case .motionDetected:
+                    return 100
+                case .motionNotDetected:
+                    return 0
+                }
+            }
             .assignWeak(to: \.kitchenTable, on: devices)
             .store(in: &subscriptions)
         

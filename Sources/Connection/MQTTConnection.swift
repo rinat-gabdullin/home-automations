@@ -46,16 +46,8 @@ public class MQTTConnection {
         _ = try? mqtt.connect().wait()
     }
     
-    public func publish(message: MQTTMessage) {
+    internal func publish(message: MQTTMessage) {
         mqtt.publish(message.payload, to: message.topic)
-    }
-    
-    public func subscribe(topic: String) {
-        mqtt.subscribe(to: topic)
-    }
-    
-    public func unsubscribe(topic: String) {
-        mqtt.unsubscribe(from: topic)
     }
     
     public func makeReader(for topicPath: TopicPath) -> TopicReader {
@@ -64,7 +56,7 @@ public class MQTTConnection {
         mqtt.whenMessage(forTopic: topicPath.path) { [weak reader] message in
             if let reader = reader {
                 DispatchQueue.main.async {
-                    reader.output?.topicReader(reader, didReceive: message.payload.string ?? "")                    
+                    reader.output?.topicReader(reader, didReceive: message.payload.string ?? "")
                 }
             }
         }
@@ -75,5 +67,4 @@ public class MQTTConnection {
     public func makeWriter(for topicPath: TopicPath) -> TopicWriter {
         TopicWriter(connection: self, topic: topicPath)
     }
-
 }

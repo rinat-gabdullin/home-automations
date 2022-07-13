@@ -19,14 +19,14 @@ class BathroomLighting: LightningRule<BathroomDevices> {
         let leftButton = devices.leftButton
         let rightButton = devices.rightButton
         
-        sensor.noMotionNotifyPeriod = 6 * 10 * 10
+        sensor.configuration.noMotionNotifyPeriod = 6 * 10 * 10
         
         sensor
             .$state
             .map { detectionState -> (LightingState) in
                 switch detectionState {
                 case .motionDetected: return .auto
-                case .motionNotDetected: return .lounge
+                default: return .lounge
                 }
             }
             .assignWeak(to: \.state, on: self)

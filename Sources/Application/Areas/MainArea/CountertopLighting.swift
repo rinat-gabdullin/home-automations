@@ -37,7 +37,9 @@ class CountertopLighting: LightningRule<MainAreaDevices> {
                         return 51
                     }
                 }
-                return 0 }
+                return 0
+                
+            }
             .assign(to: \.led, on: devices)
             .store(in: &subscriptions)
         

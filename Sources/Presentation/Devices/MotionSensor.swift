@@ -7,10 +7,12 @@
 
 import Foundation
 import Combine
+import CodeSupport
 
 public enum DetectionState: Equatable {
     case motionDetected
     case motionNotDetected
+    case motionNotDetectedWarning
 }
 
 public protocol MotionDetection {
@@ -37,21 +39,40 @@ public class MSWMotionSensor: MotionSensor<Int> {
     }
 }
 
+protocol CancellableTask {
+    func cancel()
+}
+
+extension Task: CancellableTask {
+    
+}
+
+extension MotionSensor {
+    public struct Configuration {
+        public var sensorDisableDuration: Int = 60*40
+        public var noMotionNotifyPeriod: Int = 3*60
+        public var warningTimeout: Int = 10
+    }
+}
+
 public class MotionSensor<T: Payload>: Device<T>, MotionDetection {
     
     @Published private(set) public var state = DetectionState.motionNotDetected
         
-    var sensorDisableDuration: TimeInterval = 60*40
-    
-    public var noMotionNotifyPeriod: TimeInterval = 3*60
+    public var configuration = Configuration()
+
+    // State
     
     public private(set) var enabled = true
+    private var motionDetected = false
 
+    // Timers:
+    
     weak private var sensorDisableTimer: Timer?
     
-    private var motionDetected = false
-    
-    private var noMotionTimer: Timer?
+    var noMotion: CancellableTask? {
+        didSet { oldValue?.cancel() }
+    }
     
     internal func didDetectMotion() {
         
@@ -61,10 +82,17 @@ public class MotionSensor<T: Payload>: Device<T>, MotionDetection {
             state = .motionDetected
         }
         
-        noMotionTimer?.invalidate()
-        noMotionTimer = Timer.scheduledTimer(withTimeInterval: noMotionNotifyPeriod,
-                                             repeats: false) { [weak self] _ in
-            self?.noMotionTimerDidFire()
+        let period = configuration.noMotionNotifyPeriod - configuration.warningTimeout
+        
+        noMotion = Task {
+            try await Task.sleep(seconds: period)
+            
+            if enabled {
+                state = .motionNotDetectedWarning
+            }
+            
+            try await Task.sleep(seconds: configuration.warningTimeout)
+            noMotionTimerDidFire()
         }
     }
     
@@ -83,7 +111,7 @@ public class MotionSensor<T: Payload>: Device<T>, MotionDetection {
     public func disableTemporarily(for time: TimeInterval? = nil) {
         enabled = false
         sensorDisableTimer?.invalidate()
-        sensorDisableTimer = Timer.scheduledTimer(withTimeInterval: time ?? sensorDisableDuration,
+        sensorDisableTimer = Timer.scheduledTimer(withTimeInterval: time ?? TimeInterval(configuration.sensorDisableDuration),
                                                   repeats: false) { [weak self] _ in
             self?.disableTemporarilyTimerDidFire()
         }

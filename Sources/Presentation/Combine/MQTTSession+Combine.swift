@@ -10,10 +10,7 @@ import Session
 import Combine
 
 extension MQTTSession {
-//    public func subscribe<T: Payload>(topicPath: TopicPath) -> TopicPublisher<T> {
-//        TopicPublisher(topic: topicPath, session: self)
-//    }
-    
+
     public func subscribe<T: Payload>(topicPath: TopicPath) -> AnyPublisher<T, Never> {
         TopicPublisher(topic: topicPath, session: self)
             .breakpointOnError()

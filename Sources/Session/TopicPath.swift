@@ -13,12 +13,10 @@ public struct TopicPath: Hashable, ExpressibleByStringLiteral {
     
     public init(path value: String) {
         path = value
-//        print(value)
     }
 
     public init(stringLiteral value: String) {
         path = value
-//        print(value)
     }
     
     public var on: TopicPath {

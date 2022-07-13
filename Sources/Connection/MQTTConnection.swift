@@ -5,12 +5,22 @@
 //  Created by Rinat G. on 29.11.2021.
 //
 
-import CocoaMQTT
+import MQTTNIO
 import Foundation
 
+public struct MQTTMessage {
+    public var topic: String
+    public var payload: String
+
+    public init(topic: String, payload: String) {
+        self.topic = topic
+        self.payload = payload
+    }
+    
+}
+
 public protocol MQTTConnectionOutput: AnyObject {
-    func MQTTConnectionDidConnect(_ connection: MQTTConnection)
-    func MQTTConnectionDidReceiveMessage(_ connection: MQTTConnection, message: MQTTMessage)
+    func didReceiveMQTTMessage(_ message: MQTTMessage)
 }
 
 public class MQTTConnection {
@@ -19,14 +29,9 @@ public class MQTTConnection {
         case invalidUrl
     }
     
-    private let mqtt: CocoaMQTT
-    private let listerener = MQTTDelegate()
+    private let mqtt: MQTTClient
 
-    public weak var output: MQTTConnectionOutput? {
-        didSet {
-            listerener.output = output
-        }
-    }
+    public weak var output: MQTTConnectionOutput?
     
     public init(serverUrl: URL) throws {
         guard
@@ -36,30 +41,32 @@ public class MQTTConnection {
             throw Error.invalidUrl
         }
         
-        mqtt = CocoaMQTT(clientID: "HomeScenariosApp",
-                         host: host,
-                         port: UInt16(port))
-        
-        mqtt.keepAlive = 60
-//        mqtt.logLevel = .debug
-        mqtt.autoReconnect = true
-        mqtt.delegate = listerener
-        listerener.connection = self
+        mqtt = MQTTClient(configuration: .init(target: .host(host, port: port),
+                                               protocolVersion: .version3_1_1,
+                                               connectionTimeoutInterval: .seconds(1),
+                                               reconnectMode: .retry(minimumDelay: .seconds(1), maximumDelay: .seconds(10)),
+                                               connectRequestTimeoutInterval: .seconds(1)))
     }
     
     public func connect() {
-        _ = mqtt.connect()
+        _ = try? mqtt.connect().wait()
+        
+        mqtt.whenMessage { [weak output] message in
+            let message = MQTTMessage(topic: message.topic,
+                                      payload: message.payload.string ?? "")
+            output?.didReceiveMQTTMessage(message)
+        }
     }
     
     public func publish(message: MQTTMessage) {
-        mqtt.publish(message.makeCocoaMQTTMessage())
+        mqtt.publish(message.payload, to: message.topic)
     }
     
     public func subscribe(topic: String) {
-        mqtt.subscribe(topic)
+        mqtt.subscribe(to: topic)
     }
     
     public func unsubscribe(topic: String) {
-        mqtt.unsubscribe(topic)
+        mqtt.unsubscribe(from: topic)
     }
 }

@@ -15,7 +15,7 @@ public final class Assembler {
     
     public static func assembly() throws -> Any {
         
-        guard let url = URL(string: "mqtt://192.168.0.2:1883") else {
+        guard let url = URL(string: "mqtt://wirenboard-AXNNIM4J.local:1883") else {
             throw Error.invalidUrl
         }
         

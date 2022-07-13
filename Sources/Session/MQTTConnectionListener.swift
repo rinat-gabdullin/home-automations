@@ -6,15 +6,14 @@
 //
 
 import Connection
+import Foundation
 
 class MQTTConnectionListener: MQTTConnectionOutput {
     weak var session: MQTTSession?
     
-    func MQTTConnectionDidConnect(_ connection: MQTTConnection) {
-        session?.subscriptionController.handleConnected()
-    }
-    
-    func MQTTConnectionDidReceiveMessage(_ connection: MQTTConnection, message: MQTTMessage) {
-        session?.subscriptionController.handle(message: message)
+    func didReceiveMQTTMessage(_ message: MQTTMessage) {
+        DispatchQueue.main.sync {
+            self.session?.subscriptionController.handle(message: message)            
+        }
     }
 }

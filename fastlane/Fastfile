@@ -11,10 +11,12 @@ platform :mac do
         output_directory: "./build/"
       )
 
+      password = prompt(text: "Password: ")
+
       ssh(
         host: "mini.local",
         username: "rinat",
-        password: "Marta123",
+        password: password,
         commands: [
           "launchctl unload -w /Users/rinat/Library/LaunchAgents/HomeEngine.plist"
         ]
@@ -23,7 +25,7 @@ platform :mac do
       scp(
         host: "mini.local",
         username: "rinat",
-        password: "Marta123",
+        password: password,
         upload: {
           src: "./build/HomeEngine",
           dst: "/usr/local/bin/HomeEngine"
@@ -33,7 +35,7 @@ platform :mac do
       ssh(
         host: "mini.local",
         username: "rinat",
-        password: "Marta123",
+        password: password,
         commands: [
           "launchctl load -w /Users/rinat/Library/LaunchAgents/HomeEngine.plist"
         ]

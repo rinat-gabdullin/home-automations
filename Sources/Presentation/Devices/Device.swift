@@ -24,7 +24,8 @@ public class Device<T: Payload> {
     private var subscription: Any?
     
     public init(publisher: AnyPublisher<T, Never>) {
-        subscription = publisher.assignWeak(to: \.value, on: self)
+        subscription = publisher
+            .assignWeak(to: \.value, on: self)
     }
     
     open func didSetValue(oldValue: T) {

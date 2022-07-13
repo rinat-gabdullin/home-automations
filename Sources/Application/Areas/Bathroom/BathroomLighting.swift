@@ -87,6 +87,8 @@ class BathroomLighting: LightningRule<BathroomDevices> {
             .assignWeak(to: \.led, on: devices)
             .store(in: &subscriptions)
         
+        
+        
         $state
             .map { state -> Int in
                 switch state {

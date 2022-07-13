@@ -21,13 +21,12 @@ public class MQTTSession {
         subscriptionController = SubscriptionController(mqtt: connection)
         connection.output = listener
         listener.session = self
-        
-        //TODO: here?
         connection.connect()
+        subscriptionController.handleConnected()
     }
     
     public func send(payload: String, topicPath: TopicPath) {
-        connection.publish(message: MQTTMessage(topic: topicPath.path, payload: payload) )
+        connection.publish(message: MQTTMessage(topic: topicPath.path, payload: payload))
     }
     
     public func makeReader(for topicPath: TopicPath) -> TopicReader {

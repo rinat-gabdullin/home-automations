@@ -24,13 +24,11 @@ public class WirenboardDevice {
             } else {
                 return
             }
-//            print(devicePath + label)
             titles.append(label)
             configure(topicBinding: binding)
             binding.initialize(topicPath: TopicPath(path: devicePath + label), session: session)
         }
         
-        print(titles)
     }
     
     func configure(topicBinding: TopicBinding) {

@@ -34,7 +34,7 @@ class CountertopLighting: LightningRule<MainAreaDevices> {
                     if Solar().isDaytime {
                         return 100
                     } else {
-                        return 50
+                        return 51
                     }
                 }
                 return 0 }

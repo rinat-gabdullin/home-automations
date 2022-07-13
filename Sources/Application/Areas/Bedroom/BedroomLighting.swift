@@ -71,8 +71,10 @@ class BedroomLighting: LightningRule<BedroomDevices> {
                 switch state {
                 case .off:
                     return 0
-                case .auto, .lounge:
+                case .auto:
                     return 50
+                case .lounge:
+                    return 10
                 case .bright:
                     return 100
                 }
@@ -86,7 +88,7 @@ class BedroomLighting: LightningRule<BedroomDevices> {
                 case .off, .lounge:
                     return 0
                 case .auto:
-                    return 50
+                    return 20
                 case .bright:
                     return 100
                 }
@@ -100,9 +102,9 @@ class BedroomLighting: LightningRule<BedroomDevices> {
                 case .off:
                     return 0
                 case .lounge:
-                    return 1
+                    return 0
                 case .auto:
-                    return 100
+                    return 50
                 case .bright:
                     return 255
                 }

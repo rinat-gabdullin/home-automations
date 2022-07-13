@@ -12,7 +12,7 @@ let package = Package(
             targets: ["Application"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/emqx/CocoaMQTT", from: "2.0.2"),
+        .package(url: "https://github.com/sroebert/mqtt-nio", from: "2.6.2"),
     ],
     targets: [
         
@@ -43,7 +43,7 @@ let package = Package(
         /// CocoaMQTT will be replaced with some cross-platform implemetation in order to launch this daemon in linux
             .target(
                 name: "Connection",
-                dependencies: [.byName(name: "CocoaMQTT"), .codeSupport],
+                dependencies: [.product(name: "MQTTNIO", package: "mqtt-nio"), .codeSupport],
                 path: "Connection"),
         
             .target(

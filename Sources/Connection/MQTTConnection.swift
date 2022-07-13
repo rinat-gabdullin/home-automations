@@ -7,6 +7,7 @@
 
 import MQTTNIO
 import Foundation
+import CodeSupport
 
 public struct MQTTMessage {
     public var topic: String
@@ -16,11 +17,6 @@ public struct MQTTMessage {
         self.topic = topic
         self.payload = payload
     }
-    
-}
-
-public protocol MQTTConnectionOutput: AnyObject {
-    func didReceiveMQTTMessage(_ message: MQTTMessage)
 }
 
 public class MQTTConnection {
@@ -30,8 +26,6 @@ public class MQTTConnection {
     }
     
     private let mqtt: MQTTClient
-
-    public weak var output: MQTTConnectionOutput?
     
     public init(serverUrl: URL) throws {
         guard
@@ -50,12 +44,6 @@ public class MQTTConnection {
     
     public func connect() {
         _ = try? mqtt.connect().wait()
-        
-        mqtt.whenMessage { [weak output] message in
-            let message = MQTTMessage(topic: message.topic,
-                                      payload: message.payload.string ?? "")
-            output?.didReceiveMQTTMessage(message)
-        }
     }
     
     public func publish(message: MQTTMessage) {
@@ -69,4 +57,23 @@ public class MQTTConnection {
     public func unsubscribe(topic: String) {
         mqtt.unsubscribe(from: topic)
     }
+    
+    public func makeReader(for topicPath: TopicPath) -> TopicReader {
+        let reader = TopicReader()
+        mqtt.subscribe(to: topicPath.path)
+        mqtt.whenMessage(forTopic: topicPath.path) { [weak reader] message in
+            if let reader = reader {
+                DispatchQueue.main.async {
+                    reader.output?.topicReader(reader, didReceive: message.payload.string ?? "")                    
+                }
+            }
+        }
+        
+        return reader
+    }
+    
+    public func makeWriter(for topicPath: TopicPath) -> TopicWriter {
+        TopicWriter(connection: self, topic: topicPath)
+    }
+
 }

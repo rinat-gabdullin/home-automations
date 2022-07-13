@@ -84,6 +84,6 @@ final public class MainAreaDevices: RestorableDisableContainer {
     
     
     public var restorableDisablingDevices: [RestorableDisabling] {
-        [_kitchenTable, _led, _trackKitchen, _ceiling, _workingTable, _lamp, _trackLight1, _trackLight2, _trackLight3, _trackLight4, _trackLight5]
+        [_kitchenTable, _led, _trackKitchen, _ceiling, _workingTable, _lamp, _trackLight1, _trackLight2, _trackLight3, _trackLight4, _trackLight5, _shelfLight]
     }
 }

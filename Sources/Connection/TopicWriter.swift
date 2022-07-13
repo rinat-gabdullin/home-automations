@@ -7,17 +7,18 @@
 
 import Foundation
 import Combine
+import CodeSupport
 
 public class TopicWriter {
-    let session: MQTTSession
+    let connection: MQTTConnection
     let topic: TopicPath
     
-    internal init(session: MQTTSession, topic: TopicPath) {
-        self.session = session
+    internal init(connection: MQTTConnection, topic: TopicPath) {
+        self.connection = connection
         self.topic = topic
     }
     
     public func publish(payload: String) {
-        session.send(payload: payload, topicPath: topic)
+        connection.publish(message: MQTTMessage(topic: topic.path, payload: payload))
     }
 }

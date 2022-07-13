@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Session
+import Connection
 import Combine
 
 public final class DeviceProvider {
@@ -132,11 +132,12 @@ public final class DeviceProvider {
     /// - Input 14:
     public let input1: WirenboardInput
     
-    public let session: MQTTSession
+    public let session: MQTTConnection
     
     public init(serverUrl: URL) throws {
-        session = try MQTTSession(serverUrl: serverUrl)
-
+        session = try MQTTConnection(serverUrl: serverUrl)
+        session.connect()
+        
         wirenboardHS = WirenboardHS(deviceName: "wb-gpio", session: session)
         sensorBathroom = WirenboardMSW(deviceName: "sensor-bathroom", session: session)
         sensorHall = WirenboardMSW(deviceName: "sensor-hall", session: session)

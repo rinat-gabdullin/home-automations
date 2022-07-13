@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Session
+import Connection
 import Combine
 import CodeSupport
 

@@ -7,11 +7,11 @@
 
 import Foundation
 import Combine
-import Session
+import Connection
 import CodeSupport
 
 protocol TopicBinding {
-    func initialize(topicPath: TopicPath, session: MQTTSession)
+    func initialize(topicPath: TopicPath, session: MQTTConnection)
 }
 
 /// Writable MQTT-topic
@@ -49,7 +49,7 @@ public class WritableBinding<T: Payload>: TopicBinding {
         self.customPathComponent = customPathComponent
     }
     
-    public init(session: MQTTSession, topicPath: TopicPath, setter: KeyPath<TopicPath, TopicPath> = \.set) where T: Equatable {
+    public init(session: MQTTConnection, topicPath: TopicPath, setter: KeyPath<TopicPath, TopicPath> = \.set) where T: Equatable {
         
         self.writer = session.makeWriter(for: topicPath[keyPath: setter])
         
@@ -58,7 +58,7 @@ public class WritableBinding<T: Payload>: TopicBinding {
             .store(in: &subscriptions)
     }
     
-    internal func initialize(topicPath: TopicPath, session: MQTTSession) {
+    internal func initialize(topicPath: TopicPath, session: MQTTConnection) {
         var topicPath = topicPath
         
         if let customPathComponent = customPathComponent {

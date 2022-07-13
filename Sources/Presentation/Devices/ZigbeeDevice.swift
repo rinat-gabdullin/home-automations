@@ -6,8 +6,9 @@
 //
 
 import Foundation
-import Session
+import Connection
 import Combine
+import CodeSupport
 
 @propertyWrapper
 public struct State: Equatable, Codable {
@@ -64,7 +65,7 @@ final public class ZigbeeDevice<P: Codable & Payload & Equatable>: Device<P> {
     /// - Parameters:
     ///   - session: Session
     ///   - topic: Root device topic
-    public init(session: MQTTSession, topic: TopicPath) {
+    public init(session: MQTTConnection, topic: TopicPath) {
         self.writer = session.makeWriter(for: topic.set)
         let publisher = TopicPublisher<P>(topic: topic, session: session)
             .catch { _ in Just(P.initialValue) }

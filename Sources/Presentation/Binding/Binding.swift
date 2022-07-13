@@ -7,7 +7,8 @@
 
 import Foundation
 import Combine
-import Session
+import CodeSupport
+import Connection
 
 /// Read-only MQTT-topic
 @propertyWrapper
@@ -27,7 +28,7 @@ public class Binding<T: Payload>: TopicBinding {
         self.customPathComponent = customPathComponent
     }
     
-    func initialize(topicPath: TopicPath, session: MQTTSession) {
+    func initialize(topicPath: TopicPath, session: MQTTConnection) {
         var topicPath = topicPath
         
         if let customPathComponent = customPathComponent {

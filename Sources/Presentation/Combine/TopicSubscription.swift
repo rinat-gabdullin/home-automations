@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-import Session
+import Connection
 
 extension TopicPublisher {
     

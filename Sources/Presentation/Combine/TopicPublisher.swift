@@ -7,7 +7,8 @@
 
 import Foundation
 import Combine
-import Session
+import Connection
+import CodeSupport
 
 public final class TopicPublisher<P: Payload>: Publisher {
     
@@ -15,9 +16,9 @@ public final class TopicPublisher<P: Payload>: Publisher {
     public typealias Failure = Never
     
     let topic: TopicPath
-    private let session: MQTTSession
+    private let session: MQTTConnection
     
-    public init(topic: TopicPath, session: MQTTSession) {
+    public init(topic: TopicPath, session: MQTTConnection) {
         self.topic = topic
         self.session = session
     }

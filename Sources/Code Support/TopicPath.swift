@@ -9,7 +9,7 @@ import Foundation
 
 /// MQTT Topic
 public struct TopicPath: Hashable, ExpressibleByStringLiteral {
-    let path: String
+    public let path: String
     
     public init(path value: String) {
         path = value

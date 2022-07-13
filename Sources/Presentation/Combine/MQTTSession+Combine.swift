@@ -6,10 +6,11 @@
 //
 
 import Foundation
-import Session
+import Connection
 import Combine
+import CodeSupport
 
-extension MQTTSession {
+extension MQTTConnection {
 
     public func subscribe<T: Payload>(topicPath: TopicPath) -> AnyPublisher<T, Never> {
         TopicPublisher(topic: topicPath, session: self)

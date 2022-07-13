@@ -30,14 +30,8 @@ let package = Package(
         /// *Presentation* layer describes devices exposed over MQTT
         .target(
             name: "Presentation",
-            dependencies: [.targetItem(name: "Session", condition: .none), .codeSupport],
-            path: "Presentation"),
-        
-        /// *Session* level is responsible for more convenient interaction with lower level
-        .target(
-            name: "Session",
             dependencies: [.targetItem(name: "Connection", condition: .none), .codeSupport],
-            path: "Session"),
+            path: "Presentation"),
         
         /// *Connection* is low-level layer that estabilishes connection to MQTT-broker using CocoaMQTT library
         /// CocoaMQTT will be replaced with some cross-platform implemetation in order to launch this daemon in linux

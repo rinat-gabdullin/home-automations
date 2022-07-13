@@ -6,10 +6,11 @@
 //
 
 import Foundation
-import Session
+import Connection
+import CodeSupport
 
 public class WirenboardDevice {
-    internal init(deviceName: String, session: MQTTSession) {
+    internal init(deviceName: String, session: MQTTConnection) {
         
         let devicePath = "/devices/\(deviceName)/controls/"
         
